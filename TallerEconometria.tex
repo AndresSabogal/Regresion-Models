@@ -1,0 +1,3984 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Taller De Regresion Lineal Multiple},
+  pdfauthor={Andres Felipe Sabogal Ramirez},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{Taller De Regresion Lineal Multiple}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Econometria I 2019-02}
+\author{Andres Felipe Sabogal Ramirez}
+\date{30/5/2020}
+
+\begin{document}
+\maketitle
+
+\hypertarget{algunas-formulas-importantes-para-comenzar}{%
+\section{Algunas Formulas Importantes Para
+Comenzar}\label{algunas-formulas-importantes-para-comenzar}}
+
+\[TSS=\sum_{i=1}^{n}(y_1-\overline{y})^2\]
+
+\[ESS=\sum_{i=1}^{n}(\hat{y_i}-\overline{y})^2\]
+\[RSS=\sum_{i=1}^{n}(y_i-\hat{y_i})^2=e^2\]
+
+\hypertarget{primer-punto}{%
+\section{Primer Punto}\label{primer-punto}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Se supone que la inversión es una protección contra la inflación si su
+  precio y/o tasa de retorno, al menos, se mantiene al ritmo de la
+  inflación. Para probar esta hipótesis, se decide ajustar los modelos
+\end{enumerate}
+
+Modelo 1 \[P_{oro}=\beta_1+\beta_2IPC_t+\mu_t\] Modelo 2
+\[BVNY_{t}=\beta_1+\beta_2IPC_t+\mu_t\]
+
+\hypertarget{lectura-de-datos}{%
+\subsection{Lectura de Datos}\label{lectura-de-datos}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rm}\NormalTok{(}\DataTypeTok{list=}\KeywordTok{ls}\NormalTok{()) }\CommentTok{# rm remueve objetos, ls = lista}
+\KeywordTok{setwd}\NormalTok{(}\StringTok{'C://Users/f-pis/Desktop/Semestres/Archivos R'}\NormalTok{) }\CommentTok{#Establece el workDirectory}
+\CommentTok{#install.packages("readxl") # instala el paquete para leer Excel }
+\KeywordTok{library}\NormalTok{(readxl) }\CommentTok{#..library() Carga el paquete }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'readxl' was built under R version 3.6.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(normtest)}
+\NormalTok{Datos_1P <-}\StringTok{ }\KeywordTok{read_excel}\NormalTok{(}\StringTok{"Datos_E1_Precio_Oro_BVNY.xls"}\NormalTok{) }\CommentTok{#read_excel lee el excel}
+\NormalTok{Datos_1P=}\KeywordTok{data.frame}\NormalTok{(Datos_1P) }\CommentTok{# Aqui se estable que Tiempo es una hoja de Excel}
+\KeywordTok{attach}\NormalTok{(Datos_1P) }\CommentTok{# attach() carga los datos }
+\CommentTok{#install.packages("knitr")}
+\KeywordTok{library}\NormalTok{(knitr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'knitr' was built under R version 3.6.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(}
+  \KeywordTok{head}\NormalTok{(Datos_1P), }\DataTypeTok{caption =} \StringTok{"Head Datos Primer Punto"}\NormalTok{,}\DataTypeTok{align =} \StringTok{"c"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}cccc@{}}
+\caption{Head Datos Primer Punto}\tabularnewline
+\toprule
+Date & Poro & BVNY & IPC\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Date & Poro & BVNY & IPC\tabularnewline
+\midrule
+\endhead
+1974 & 59.26 & 511.354 & 49.3\tabularnewline
+1975 & 61.02 & 513.355 & 53.8\tabularnewline
+1976 & 24.84 & 522.585 & 56.9\tabularnewline
+1977 & 57.71 & 521.766 & 60.6\tabularnewline
+1978 & 93.22 & 521.781 & 65.2\tabularnewline
+1979 & 206.68 & 526.668 & 72.6\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{definimos-los-dos-modelos-de-inversion}{%
+\subsection{Definimos los dos modelos de
+inversion}\label{definimos-los-dos-modelos-de-inversion}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# el modelo 1 es Poro_t= beta1 + beta2*IPC_t +U_t}
+
+\NormalTok{Mod_}\DecValTok{1}\NormalTok{<-}\KeywordTok{lm}\NormalTok{(Datos_1P}\OperatorTok{$}\NormalTok{Poro}\OperatorTok{~}\NormalTok{Datos_1P}\OperatorTok{$}\NormalTok{IPC)}
+\StringTok{"Esta es la regresion del primer modelo"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Esta es la regresion del primer modelo"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\KeywordTok{summary}\NormalTok{(Mod_}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Datos_1P$Poro ~ Datos_1P$IPC)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -150.557  -90.711    5.178   37.052  310.944 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)  
+## (Intercept)  116.8937    54.2597   2.154   0.0391 *
+## Datos_1P$IPC   1.0282     0.4022   2.556   0.0157 *
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 102.7 on 31 degrees of freedom
+## Multiple R-squared:  0.1741, Adjusted R-squared:  0.1474 
+## F-statistic: 6.534 on 1 and 31 DF,  p-value: 0.0157
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(Mod_}\DecValTok{1}\NormalTok{)}
+\NormalTok{e1<-}\KeywordTok{residuals}\NormalTok{(Mod_}\DecValTok{1}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(e1)}
+\KeywordTok{boxplot}\NormalTok{(e1, }\DataTypeTok{main=}\StringTok{"Boxplot residuals"}\NormalTok{) }\CommentTok{# grafica de caja de los errores de estimacion (et)}
+\StringTok{"Prueba de jarque-bera"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Prueba de jarque-bera"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{jb.norm.test}\NormalTok{(e1) }\CommentTok{# Prueba de normalidad Jarque-Bera }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Jarque-Bera test for normality
+## 
+## data:  e1
+## JB = 5.5814, p-value = 0.037
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"Intervalos de Confianza"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Intervalos de Confianza"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(Intervalos_}\DecValTok{1}\NormalTok{<-}\KeywordTok{confint}\NormalTok{(Mod_}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                  2.5 %     97.5 %
+## (Intercept)  6.2302421 227.557098
+## Datos_1P$IPC 0.2078211   1.848546
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# El modelo 2 es BVNY_t=beta1 + beta2*IPC_t + U_t}
+
+\NormalTok{Mod_}\DecValTok{2}\NormalTok{<-}\KeywordTok{lm}\NormalTok{(Datos_1P}\OperatorTok{$}\NormalTok{BVNY}\OperatorTok{~}\NormalTok{Datos_1P}\OperatorTok{$}\NormalTok{IPC)}
+\StringTok{"Esta es la regresion del segundo modelo"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Esta es la regresion del segundo modelo"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(Mod_}\DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Datos_1P$BVNY ~ Datos_1P$IPC)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -132.20  -82.40  -34.44   96.46  166.31 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  120.5008    53.3967   2.257   0.0312 *  
+## Datos_1P$IPC   5.0297     0.3958  12.707  7.9e-14 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 101 on 31 degrees of freedom
+## Multiple R-squared:  0.8389, Adjusted R-squared:  0.8337 
+## F-statistic: 161.5 on 1 and 31 DF,  p-value: 7.895e-14
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(Mod_}\DecValTok{2}\NormalTok{)}
+\NormalTok{e2<-}\KeywordTok{residuals}\NormalTok{(Mod_}\DecValTok{2}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(e2)}
+\KeywordTok{boxplot}\NormalTok{(e2, }\DataTypeTok{main=}\StringTok{"Boxplot residuals"}\NormalTok{) }\CommentTok{# grafica de caja de los errores de estimacion (et)}
+\KeywordTok{jb.norm.test}\NormalTok{(e2) }\CommentTok{# Prueba de normalidad Jarque-Bera }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Jarque-Bera test for normality
+## 
+## data:  e2
+## JB = 3.0839, p-value = 0.092
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(Intervalos_}\DecValTok{2}\NormalTok{<-}\KeywordTok{confint}\NormalTok{(Mod_}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                  2.5 %     97.5 %
+## (Intercept)  11.597433 229.404209
+## Datos_1P$IPC  4.222402   5.837033
+\end{verbatim}
+
+\begin{center}\includegraphics{TallerEconometria_files/figure-latex/1.2-1} \includegraphics{TallerEconometria_files/figure-latex/1.2-2} \includegraphics{TallerEconometria_files/figure-latex/1.2-3} \includegraphics{TallerEconometria_files/figure-latex/1.2-4} \includegraphics{TallerEconometria_files/figure-latex/1.2-5} \includegraphics{TallerEconometria_files/figure-latex/1.2-6} \includegraphics{TallerEconometria_files/figure-latex/1.2-7} \includegraphics{TallerEconometria_files/figure-latex/1.2-8} \includegraphics{TallerEconometria_files/figure-latex/1.2-9} \includegraphics{TallerEconometria_files/figure-latex/1.2-10} \includegraphics{TallerEconometria_files/figure-latex/1.2-11} \includegraphics{TallerEconometria_files/figure-latex/1.2-12} \end{center}
+
+Interpretacion: Se observa que enel modelo 1 tanto el intercepto Beta1,
+como la pendiente Beta2 son significaticas debido a
+p\_val\textless alpha, sin embargo se observa que el coeficiente de
+determinacion R\_cuadrado es muy bajo 0.1741 por lo que solo el 17,41\%
+de la varianza del modelo esta siedo explicada, ademas de esto la prueba
+de normalidad de los errores Jarque -Bera arroja un
+p\_val\textless alpha 0.035 por lo que se puede pensar en la no
+normalidad en la distribucion de los errores Por otra partese observa
+que en el modelo dos Beta1 y Beta2 son significativos al 5\% con un
+R\_cuadrado alto 0.8389 que explica el 83.39\% de la varianza del
+modelo, y ademas la prueba J-B arroja un P\_val\textgreater alpha 0.0855
+por lo que rechazamos Ho y inferimos normalidad en la distribucion
+
+Como conclusion se obsrva que el segundo modelo es mejor ya que tiene un
+R2 cercano a uno y en su grafica de cuantiles se observa que se ajusta a
+la distribucion normal, sin embargo en la grafica Residuals Vs fitted
+del modelo 2 se observa que puede que el modelo no sea lineal.
+
+\hypertarget{segundo-punto}{%
+\section{SEGUNDO PUNTO}\label{segundo-punto}}
+
+Se formula el siguiente modelo para estudiar la relación entre X e Y: Se
+quiere estimar el modelo:
+
+\[Y_{i}=\beta_1+\beta_2X_{i}+\mu_t\]
+
+\#\#REGRESION GASTO-INGRESOS POR HOGARES
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{setwd}\NormalTok{(}\StringTok{'C://Users/f-pis/Desktop/Semestres/Archivos R'}\NormalTok{)}
+\NormalTok{Datos_2P<-}\KeywordTok{read_excel}\NormalTok{(}\StringTok{"Datos_E2_Gastos_Ingreso_Hogares.xls"}\NormalTok{)}
+\NormalTok{Datos_2P=}\KeywordTok{data.frame}\NormalTok{(Datos_2P)}
+
+\KeywordTok{library}\NormalTok{(knitr)}
+\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(}
+  \KeywordTok{head}\NormalTok{(Datos_2P), }\DataTypeTok{caption =} \StringTok{"Head Datos Segundo Punto"}\NormalTok{,}\DataTypeTok{align =} \StringTok{"c"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}ccc@{}}
+\caption{Head Datos Segundo Punto}\tabularnewline
+\toprule
+Hogar & Y & X\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Hogar & Y & X\tabularnewline
+\midrule
+\endhead
+1 & 9.46 & 25.83\tabularnewline
+2 & 10.56 & 34.31\tabularnewline
+3 & 14.81 & 42.50\tabularnewline
+4 & 21.71 & 46.75\tabularnewline
+5 & 22.79 & 48.29\tabularnewline
+6 & 18.19 & 48.77\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Se busca estudiar la relacion que existe entre X e Y}
+\CommentTok{# Se quiere estimar el modelo Y_i= beta_1+beta_2*X_i + U_i  con i=1.....40}
+
+\CommentTok{#install.packages("ggplot2")}
+
+\ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\KeywordTok{require}\NormalTok{(}\StringTok{'ggplot2'}\NormalTok{)) }
+\NormalTok{\{}
+  \KeywordTok{install.packages}\NormalTok{(}\StringTok{'ggplot2'}\NormalTok{);}
+  \KeywordTok{library}\NormalTok{(ggplot2);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: ggplot2
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'ggplot2' was built under R version 3.6.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{ggplot}\NormalTok{(Datos_2P, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{X, }\DataTypeTok{y=}\NormalTok{Y)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Gráfica Diagrama de Dispersión") + xlab("}\NormalTok{Ingresos por familia}\StringTok{") + ylab("}\NormalTok{Gastos por familia}\StringTok{") + geom_smooth(method=lm) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula 'y ~ x'
+\end{verbatim}
+
+\begin{center}\includegraphics{TallerEconometria_files/figure-latex/2.1-1} \end{center}
+
+En la grafica de dispersion de ingresos Vs Gastos se puede observar una
+relacion lineal representada por la linea azul
+
+\hypertarget{estimacion-por-metodo-matricial-ols}{%
+\subsection{Estimacion Por Metodo Matricial
+OLS}\label{estimacion-por-metodo-matricial-ols}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X_2P <-}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(}\DecValTok{1}\NormalTok{,Datos_2P[,}\DecValTok{3}\NormalTok{]))}
+\NormalTok{Y_2P <-}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(Datos_2P[,}\DecValTok{2}\NormalTok{])}
+\CommentTok{#Reg2=lm(Y_2P~Datos_3[,3:5])}
+
+\NormalTok{XtX_}\DecValTok{2}\NormalTok{ =}\StringTok{ }\KeywordTok{t}\NormalTok{(X_2P)}\OperatorTok{%*%}\NormalTok{X_2P  }\CommentTok{# Este es el resultado de multiplicar X traspuesta por X }
+\NormalTok{XtX_}\DecValTok{2}  \CommentTok{# X Traspuesta por X (Xt*X)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1]     [,2]
+## [1,]   40   2792.0
+## [2,] 2792 210206.2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{XtX_inv_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{solve}\NormalTok{(XtX_}\DecValTok{2}\NormalTok{)  }\CommentTok{# LA FUNCION solve() halla la INVERSA de la matriz }
+\NormalTok{XtX_inv_}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              [,1]          [,2]
+## [1,]  0.342922190 -4.554759e-03
+## [2,] -0.004554759  6.525443e-05
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Xty_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{t}\NormalTok{(X_2P)}\OperatorTok{%*%}\NormalTok{Y_2P }\CommentTok{# Resultado de X traspuesta por y ... }
+\NormalTok{Xty_}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,]   943.48
+## [2,] 69417.39
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\NormalTok{XtX_inv_}\DecValTok{2}\OperatorTok{%*%}\NormalTok{Xty_}\DecValTok{2} \CommentTok{#  Resultado de los estimadores b = (Xt*X)inv*Xt*y}
+\StringTok{"Estos son los coeficientes estimados OLS"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Estos son los coeficientes estimados OLS"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b_}\DecValTok{2} 
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           [,1]
+## [1,] 7.3607278
+## [2,] 0.2324681
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Ye_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\NormalTok{X_2P}\OperatorTok{%*%}\NormalTok{b_}\DecValTok{2} \CommentTok{#Calcula yt estimado}
+\StringTok{"Estos son los Y estimados por el modelo "}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Estos son los Y estimados por el modelo "
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#OJO estos son los resultados estimados de y de acuerdo a los valores encontrados de los coeficientes }
+\KeywordTok{plot}\NormalTok{(Y_2P,Ye_}\DecValTok{2}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Grafica Y Vs Y_estimado"}\NormalTok{, )  }\CommentTok{# Se grafica Y de los datos iniciales (y)  contra Y estimado (yte)}
+\NormalTok{e_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\NormalTok{Y_2P }\OperatorTok{-}\StringTok{ }\NormalTok{Ye_}\DecValTok{2}  \CommentTok{# et es el vector de errores de estimacion (Ydado-Yestimado) }
+\NormalTok{(}\KeywordTok{summary}\NormalTok{(e_}\DecValTok{2}\NormalTok{))  }\CommentTok{# Aqui se muestra en consola un summary de los errores de estimacion (et)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        V1         
+##  Min.   :-12.992  
+##  1st Qu.: -3.606  
+##  Median : -1.071  
+##  Mean   :  0.000  
+##  3rd Qu.:  3.225  
+##  Max.   : 14.509
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(e_}\DecValTok{2}\NormalTok{, }\DataTypeTok{prob=}\OtherTok{TRUE}\NormalTok{,}\DataTypeTok{main=}\StringTok{"Histogram e"}\NormalTok{)   }\CommentTok{#Histograma de los errores de estimacion }
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{dnorm}\NormalTok{(x,}\DataTypeTok{mean =} \DecValTok{0}\NormalTok{,}\DataTypeTok{sd=}\DecValTok{1}\NormalTok{),}\DataTypeTok{col=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{3}\NormalTok{,}\DataTypeTok{add =} \OtherTok{TRUE}\NormalTok{) }\CommentTok{# Agrega una curva normal con media en cero y desviacion estandar 1 }
+\KeywordTok{boxplot}\NormalTok{(e_}\DecValTok{2}\NormalTok{,}\DataTypeTok{main=}\StringTok{"Boxplot e"}\NormalTok{) }\CommentTok{# grafica de caja de los errores de estimacion (et)}
+\StringTok{"Prueba Jarque-bera sobre los errores"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Prueba Jarque-bera sobre los errores"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{jb.norm.test}\NormalTok{(e_}\DecValTok{2}\NormalTok{) }\CommentTok{# Prueba de normalidad Jarque-Bera }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Jarque-Bera test for normality
+## 
+## data:  e_2
+## JB = 1.0813, p-value = 0.4795
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{g1_qq <-}\StringTok{ }\KeywordTok{qqnorm}\NormalTok{(e_}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\StringTok{"black"}\NormalTok{) }\CommentTok{# Genera una Q-Q plot que es un metodo para comparar distrubuciones de probabilidad de una muestra aleatoria y una de comparacion  }
+\KeywordTok{qqline}\NormalTok{(e_}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\StringTok{"red"}\NormalTok{) }\CommentTok{# qqline agrega a la grafica anterior una linea de tendencia teorica de cuantiles de una distribucion normal }
+
+\CommentTok{# OTRA FORMA PARA YT vs YTE}
+\CommentTok{# De esta manera de grafica y y se agrega la linea LINES de yte estimado }
+\KeywordTok{plot}\NormalTok{(Y_2P,}\DataTypeTok{t=}\StringTok{"l"}\NormalTok{,}\DataTypeTok{main=}\StringTok{"Y Vs Y estimado"}\NormalTok{) }\CommentTok{#   "l" significa linea, p significa puntos}
+\KeywordTok{lines}\NormalTok{(Ye_}\DecValTok{2}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\DataTypeTok{x=}\DecValTok{0}\NormalTok{,}\DataTypeTok{y=}\DecValTok{40}\NormalTok{,}\DataTypeTok{legend =} \KeywordTok{c}\NormalTok{(}\StringTok{"observado"}\NormalTok{,}\StringTok{"estimado"}\NormalTok{),}\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DataTypeTok{lty =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{4}\NormalTok{) ) }\CommentTok{#"lty" significa 1=linea, 4= punto y linea }
+
+\StringTok{"Estimacion con lm"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Estimacion con lm"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Reg2lm=}\KeywordTok{lm}\NormalTok{(X_2P}\OperatorTok{~}\NormalTok{Y_2P)}
+\NormalTok{(}\KeywordTok{summary}\NormalTok{(Reg2lm))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Response Y1 :
+## 
+## Call:
+## lm(formula = Y1 ~ Y_2P)
+## 
+## Residuals:
+##        Min         1Q     Median         3Q        Max 
+## -6.940e-15  5.500e-18  2.567e-16  3.933e-16  7.376e-16 
+## 
+## Coefficients:
+##              Estimate Std. Error   t value Pr(>|t|)    
+## (Intercept) 1.000e+00  5.796e-16 1.725e+15   <2e-16 ***
+## Y_2P        4.180e-17  2.325e-17 1.798e+00   0.0801 .  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.188e-15 on 38 degrees of freedom
+## Multiple R-squared:  0.4964, Adjusted R-squared:  0.4831 
+## F-statistic: 37.45 on 1 and 38 DF,  p-value: 3.902e-07
+## 
+## 
+## Response Y2 :
+## 
+## Call:
+## lm(formula = Y2 ~ Y_2P)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -24.692 -12.585  -1.147   7.793  47.997 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  37.6125     8.0971   4.645    4e-05 ***
+## Y_2P          1.3646     0.3248   4.202 0.000154 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 16.59 on 38 degrees of freedom
+## Multiple R-squared:  0.3172, Adjusted R-squared:  0.2993 
+## F-statistic: 17.66 on 1 and 38 DF,  p-value: 0.0001544
+\end{verbatim}
+
+\begin{center}\includegraphics{TallerEconometria_files/figure-latex/2.2-1} \includegraphics{TallerEconometria_files/figure-latex/2.2-2} \includegraphics{TallerEconometria_files/figure-latex/2.2-3} \includegraphics{TallerEconometria_files/figure-latex/2.2-4} \includegraphics{TallerEconometria_files/figure-latex/2.2-5} \end{center}
+
+Se observa que de los estimadores OLS del modelo tenemos un intercepto
+de 7.3607278 y una pendiente 0.2324681, siendo la pendiente Beta 2 se
+interpreta como la variacion de los gastos promedio semanales en dólares
+para hogares de tres personas (Y) freste a una variacion en los ingresos
+por lo que el signo es positivo, es el esperado ya que frente a un
+aumento en el ingreso se espera un aumento en el gasto. El test de
+jarque-Bera da P\_val\textgreater alpha 0,467 por lo que se acepta la Ho
+y se afirma la normalidad de los errores,
+
+\hypertarget{calculo-de-las-sumas-de-cuadrados-tss-ess-y-rss}{%
+\subsection{Calculo de las sumas de cuadrados TSS, ESS y
+RSS}\label{calculo-de-las-sumas-de-cuadrados-tss-ess-y-rss}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{TSS_}\DecValTok{2}\NormalTok{=}\KeywordTok{t}\NormalTok{(Y_2P)}\OperatorTok{%*%}\NormalTok{Y_2P}\OperatorTok{-}\KeywordTok{length}\NormalTok{(Y_2P)}\OperatorTok{*}\KeywordTok{mean}\NormalTok{(Y_2P)}\OperatorTok{^}\DecValTok{2}  \CommentTok{# Suma de los cuadrados totales (y-ybarra)**2}
+\CommentTok{#.........Tss= SUM Y**2-n*Y_barra**2}
+\StringTok{"Este es el TSS"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Este es el TSS"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{TSS_}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 2610.594
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ESS_}\DecValTok{2}\NormalTok{=}\KeywordTok{t}\NormalTok{(b_}\DecValTok{2}\NormalTok{)}\OperatorTok{%*%}\StringTok{ }\NormalTok{XtX_}\DecValTok{2} \OperatorTok{%*%}\NormalTok{b_}\DecValTok{2}\OperatorTok{-}\KeywordTok{length}\NormalTok{(Y_2P)}\OperatorTok{*}\KeywordTok{mean}\NormalTok{(Y_2P)}\OperatorTok{^}\DecValTok{2} \CommentTok{# Suma de los cuadrados explicados (yest-ybarra)**2   .....ESS= b'*(X'X)*b-n*Y_barra**2}
+\StringTok{"Este es el ESS"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Este es el ESS"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ESS_}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 828.1646
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RSS_}\DecValTok{2}\NormalTok{=}\KeywordTok{t}\NormalTok{(e_}\DecValTok{2}\NormalTok{)}\OperatorTok{%*%}\NormalTok{e_}\DecValTok{2}   \CommentTok{# suma de cuadrados residuales (yi-yest)**2 ......(et_traspuesto*et)}
+\StringTok{"Este es el RSS"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Este es el RSS"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RSS_}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         [,1]
+## [1,] 1782.43
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{TSS_e16_}\DecValTok{2}\NormalTok{=ESS_}\DecValTok{2}\OperatorTok{+}\NormalTok{RSS_}\DecValTok{2}  \CommentTok{# las uma de cuadrados totales es igual al RSS + ESS}
+\StringTok{"Esta es la suma TSS=ESS+RSS"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Esta es la suma TSS=ESS+RSS"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{TSS_e16_}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 2610.594
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RC_}\DecValTok{2}\NormalTok{<-ESS_}\DecValTok{2}\NormalTok{[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{]}\OperatorTok{/}\NormalTok{TSS_}\DecValTok{2}\NormalTok{[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{]  }\CommentTok{# calculo del coeficiente de determinacion R_Cuadrado}
+\StringTok{"Este es el coeficiente de determinacion R^2"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Este es el coeficiente de determinacion R^2"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RC_}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3172322
+\end{verbatim}
+
+Luego el coeficiente de determinacion R2 es bajo y explica el 31.72\% de
+la varianza del modelo
+
+\hypertarget{estimacion-de-la-varianza-y-pruebas-de-significancia-individual}{%
+\subsection{Estimacion De La Varianza y Pruebas De Significancia
+Individual}\label{estimacion-de-la-varianza-y-pruebas-de-significancia-individual}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Recordar que b~N(beta,Sigma**2(X'X)Inv) Donde b es el vector de estimadores hallados }
+
+\CommentTok{# Recordar que Var b_estimado=s**2*(X'X)inv}
+
+\NormalTok{S2_}\DecValTok{2}\NormalTok{<-}\StringTok{ }\NormalTok{RSS_}\DecValTok{2}\NormalTok{[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{]}\OperatorTok{/}\DecValTok{38} \CommentTok{# Aqui se hala la varianza S**2estimado=RSS/(n-k)=et**2/(n-k) ES UN ESCALAR}
+\NormalTok{Var_b2=S2_}\DecValTok{2}\OperatorTok{*}\NormalTok{XtX_inv_}\DecValTok{2} \CommentTok{# Matriz de varianzas y covarianzas ___Los elementos de la diagonal de la matriz contienen las varianzas de las variables, mientras que los elementos que se encuentran fuera de la diagonal contienen las covarianzas entre todos los pares posibles de variables.}
+\NormalTok{S2b1_}\DecValTok{2}\NormalTok{=Var_b2[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{]}
+\NormalTok{S2b2_}\DecValTok{2}\NormalTok{=Var_b2[}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{]}
+
+\NormalTok{sb1_}\DecValTok{2}\NormalTok{=}\KeywordTok{sqrt}\NormalTok{(S2b1_}\DecValTok{2}\NormalTok{)}
+\NormalTok{sb2_}\DecValTok{2}\NormalTok{=}\KeywordTok{sqrt}\NormalTok{(S2b2_}\DecValTok{2}\NormalTok{)}
+
+\NormalTok{colum1<-}\KeywordTok{c}\NormalTok{(}\StringTok{"Coef"}\NormalTok{,}\StringTok{"b1"}\NormalTok{,}\StringTok{"b2"}\NormalTok{)}
+\NormalTok{colum2<-}\KeywordTok{c}\NormalTok{(}\StringTok{"Estimación",b_2[1,1], b_2[2,1])}
+\StringTok{colum3<-c("}\NormalTok{Varianza}\StringTok{",S2b1_2, S2b2_2)}
+\StringTok{colum4<-c("}\NormalTok{Error_Estandar}\StringTok{",sb1_2, sb2_2)}
+\StringTok{Tabla_Coef_Var_2 <- cbind(colum1,colum2,colum3,colum4)}
+\StringTok{kable(Tabla_Coef_Var_2,caption = "}\NormalTok{Coeficientes y Varianzas }\StringTok{",align = "}\NormalTok{c}\StringTok{")}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}cccc@{}}
+\caption{Coeficientes y Varianzas}\tabularnewline
+\toprule
+colum1 & colum2 & colum3 & colum4\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+colum1 & colum2 & colum3 & colum4\tabularnewline
+\midrule
+\endhead
+Coef & Estimación & Varianza & Error\_Estandar\tabularnewline
+b1 & 7.36072783063958 & 16.0851229232876 &
+4.0106262507603\tabularnewline
+b2 & 0.232468082655594 & 0.00306082705693042 &
+0.0553247418153074\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{""}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] ""
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"Pruebas de Significancia Individual"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Pruebas de Significancia Individual"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"|Ho: b_j=0"}  
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "|Ho: b_j=0"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"|Ha: b_j=/= 0"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "|Ha: b_j=/= 0"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Recordar que t_sub_b1=b1/Se(b1)=t_sub_c  Donde Se(b1) es la desviacion estandar de b1 sqrt(var(b1))}
+
+\CommentTok{# Recordar que P_Val= 2*Prob[t_sub_n-k > abs(t_sub_b1)]}
+
+\CommentTok{# Aqui se hacen las pruebas de significancia individual de cada estimador }
+\NormalTok{tb1_}\DecValTok{2}\NormalTok{=b_}\DecValTok{2}\NormalTok{[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{]}\OperatorTok{/}\NormalTok{sb1_}\DecValTok{2}   \CommentTok{# VALORES t }
+\NormalTok{pb1_}\DecValTok{2}\NormalTok{=}\DecValTok{2}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{pt}\NormalTok{(}\KeywordTok{abs}\NormalTok{(tb1_}\DecValTok{2}\NormalTok{),}\DecValTok{38}\NormalTok{))  }\CommentTok{# IMPORTANTE con esta funcion pt() obtenemos la probabilidad de una distribucion t-Student con 47 grados de libertad  VALORES p }
+\NormalTok{tb2_}\DecValTok{2}\NormalTok{=b_}\DecValTok{2}\NormalTok{[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{]}\OperatorTok{/}\NormalTok{sb2_}\DecValTok{2}
+\NormalTok{pb2_}\DecValTok{2}\NormalTok{=}\DecValTok{2}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{pt}\NormalTok{(}\KeywordTok{abs}\NormalTok{(tb2_}\DecValTok{2}\NormalTok{),}\DecValTok{38}\NormalTok{))}
+
+\NormalTok{colum1<-}\KeywordTok{c}\NormalTok{(}\StringTok{"Coef"}\NormalTok{,}\StringTok{"b1"}\NormalTok{,}\StringTok{"b2"}\NormalTok{)}
+\NormalTok{colum2<-}\KeywordTok{c}\NormalTok{(}\StringTok{"Estimación",b_2[1,1], b_2[2,1])}
+\StringTok{colum4<-c("}\NormalTok{Error_Estandar}\StringTok{",sb1_2, sb2_2)}
+\StringTok{colum5<-c("}\NormalTok{Valores t}\StringTok{",tb1_2, tb2_2)}
+\StringTok{colum6<-c("}\NormalTok{Valores p}\StringTok{",pb1_2, pb2_2)}
+\StringTok{Tabla_analisis_reg_2 <- cbind(colum1,colum2, colum4,colum5,colum6)}
+\StringTok{kable(Tabla_analisis_reg_2,caption = "}\NormalTok{Coeficientes y Varianzas }\StringTok{",align = "}\NormalTok{c}\StringTok{")}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}ccccc@{}}
+\caption{Coeficientes y Varianzas}\tabularnewline
+\toprule
+colum1 & colum2 & colum4 & colum5 & colum6\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+colum1 & colum2 & colum4 & colum5 & colum6\tabularnewline
+\midrule
+\endhead
+Coef & Estimación & Error\_Estandar & Valores t & Valores
+p\tabularnewline
+b1 & 7.36072783063958 & 4.0106262507603 & 1.83530635128222 &
+0.0742962908246338\tabularnewline
+b2 & 0.232468082655594 & 0.0553247418153074 & 4.20188282905415 &
+0.000154435397409225\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{modelo-de-regresion-lineal-en-desviaciones-de-la-media}{%
+\subsection{Modelo De Regresion Lineal En Desviaciones De La
+Media}\label{modelo-de-regresion-lineal-en-desviaciones-de-la-media}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{I40 <-}\StringTok{ }\KeywordTok{diag}\NormalTok{(}\DecValTok{40}\NormalTok{)  }\CommentTok{# diag() nos arroja una matriz diagonal cuadrada con unos en la diagonal}
+\NormalTok{i_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{40}\NormalTok{)  }\CommentTok{# Genera un vector de unos de tamaño 52}
+\NormalTok{iit_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\NormalTok{i_}\DecValTok{2}\OperatorTok{%*%}\StringTok{ }\KeywordTok{t}\NormalTok{(i_}\DecValTok{2}\NormalTok{)  }\CommentTok{# Multiplica y da coo resultado una matriz i de unos 1 de orden 52len}
+\CommentTok{#vi1 <- matrix(nrow=52, ncol=1, rep(1, 52)) #  Vector de unos }
+\CommentTok{#Miit1 <- matrix(nrow=52, ncol=52, rep(1,52*52))  # Matriz de unos   }
+\NormalTok{A <-}\StringTok{ }\NormalTok{I40}\OperatorTok{-}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\DecValTok{40}\NormalTok{)}\OperatorTok{*}\NormalTok{iit_}\DecValTok{2}  \CommentTok{# Matriz 52X52 donde a la diagonal principal se le resta 1/52 y el resto de entredas seran 0-1/52 }
+\CommentTok{#X21 <- X0[1:52,2:5]   # Define una matriz de 52x4}
+\NormalTok{Xa_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\NormalTok{A}\OperatorTok{%*%}\NormalTok{X_2P[,}\DecValTok{2}\NormalTok{]  }\CommentTok{#  Resulta una matriz de 40x1 A*X2=A*X21}
+\NormalTok{ya_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\NormalTok{A}\OperatorTok{%*%}\NormalTok{Y_2P[,}\DecValTok{1}\NormalTok{]   }\CommentTok{# ya es un vector de 52 X 1 resultado de A*y}
+\NormalTok{XatXa_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{t}\NormalTok{(Xa_}\DecValTok{2}\NormalTok{)}\OperatorTok{%*%}\NormalTok{Xa_}\DecValTok{2} 
+\NormalTok{XatXa_}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 15324.63
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{XatXa_}\DecValTok{2}\NormalTok{_inv <-}\StringTok{ }\KeywordTok{solve}\NormalTok{(XatXa_}\DecValTok{2}\NormalTok{)}
+\NormalTok{XatXa_}\DecValTok{2}\NormalTok{_inv}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              [,1]
+## [1,] 6.525443e-05
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Xatya_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{t}\NormalTok{(Xa_}\DecValTok{2}\NormalTok{)}\OperatorTok{%*%}\NormalTok{ya_}\DecValTok{2}
+\NormalTok{Xatya_}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 3562.487
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b2_desv <-}\StringTok{ }\NormalTok{XatXa_}\DecValTok{2}\NormalTok{_inv}\OperatorTok{%*%}\NormalTok{Xatya_}\DecValTok{2}
+\StringTok{"b2_desv es el vector de parametros estimados en en modelo en desviaciones"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "b2_desv es el vector de parametros estimados en en modelo en desviaciones"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{kable}\NormalTok{(b2_desv, }\DataTypeTok{caption =} \StringTok{"Parametros Estimados Mod-Desv"}\NormalTok{,}\DataTypeTok{align =} \StringTok{"c"}\NormalTok{)      }\CommentTok{# b2 es el vector de parametros estimados }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in kable_markdown(x, padding = padding, ...): The table should have a
+## header (column names)
+\end{verbatim}
+
+\begin{longtable}[]{@{}c@{}}
+\caption{Parametros Estimados Mod-Desv}\tabularnewline
+\toprule
+\endhead
+0.2324681\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# OBTENEMOS EL INTERCEPTO}
+\CommentTok{# Ybarra-b2*X2barra-b3*X3barra-b4*X4barra-b5*X5barra}
+\NormalTok{Intercepto_}\DecValTok{2}\NormalTok{=}\KeywordTok{mean}\NormalTok{(Y_2P)}\OperatorTok{-}\NormalTok{b2_desv[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{]}\OperatorTok{*}\KeywordTok{mean}\NormalTok{(X_2P[,}\DecValTok{2}\NormalTok{])}
+\StringTok{"Intercepto estimado"}  \CommentTok{# Entre comillas --muestra el mensaje en la consola}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Intercepto estimado"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Intercepto_}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.360728
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{yde_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\NormalTok{Xa_}\DecValTok{2}\OperatorTok{%*%}\NormalTok{b2_desv   }\CommentTok{# Vector de Y estimado }
+\NormalTok{ed_}\DecValTok{2}\NormalTok{ <-}\StringTok{  }\NormalTok{ya_}\DecValTok{2}\OperatorTok{-}\NormalTok{yde_}\DecValTok{2}      \CommentTok{# Vector de errores de estimacion }
+\NormalTok{TSSa_}\DecValTok{2}\NormalTok{=}\KeywordTok{t}\NormalTok{(ya_}\DecValTok{2}\NormalTok{)}\OperatorTok{%*%}\NormalTok{ya_}\DecValTok{2}      \CommentTok{# Suma de cuadrados totales }
+\StringTok{"Suma total de cuadrados del modelo en desviaciones"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Suma total de cuadrados del modelo en desviaciones"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{TSSa_}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 2610.594
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ESSa_}\DecValTok{2}\NormalTok{=}\KeywordTok{t}\NormalTok{(b2_desv)}\OperatorTok{%*%}\StringTok{ }\NormalTok{XatXa_}\DecValTok{2} \OperatorTok{%*%}\NormalTok{b2_desv    }\CommentTok{# SUma de cuadrados Estimados  b2t*XatXa*b2}
+\StringTok{"Suma de cuadrados explicados del modelo en desviaciones"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Suma de cuadrados explicados del modelo en desviaciones"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ESSa_}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 828.1646
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RSSa_}\DecValTok{2}\NormalTok{=}\KeywordTok{t}\NormalTok{(ed_}\DecValTok{2}\NormalTok{)}\OperatorTok{%*%}\NormalTok{ed_}\DecValTok{2} \CommentTok{# Suma de cuadrados residuales eta**2}
+\StringTok{"Suma de cuadrados residuales en mod de desviaciones"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Suma de cuadrados residuales en mod de desviaciones"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RSSa_}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         [,1]
+## [1,] 1782.43
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c=}\KeywordTok{c}\NormalTok{(}\StringTok{"Modelo en desviacioes"}\NormalTok{)}
+\NormalTok{c1=}\KeywordTok{c}\NormalTok{(}\StringTok{"TSS"}\NormalTok{,}\StringTok{"ESS"}\NormalTok{,}\StringTok{"RSS"}\NormalTok{)}
+\NormalTok{c2=}\KeywordTok{c}\NormalTok{(TSSa_}\DecValTok{2}\NormalTok{,ESSa_}\DecValTok{2}\NormalTok{,RSSa_}\DecValTok{2}\NormalTok{)}
+\NormalTok{Sum_cuad_desv_}\DecValTok{2}\NormalTok{=}\KeywordTok{cbind}\NormalTok{(c,c1,c2)}
+\KeywordTok{kable}\NormalTok{(Sum_cuad_desv_}\DecValTok{2}\NormalTok{,}\DataTypeTok{caption =} \StringTok{"Sumas de Cuadrados Mod-Desv"}\NormalTok{,}\DataTypeTok{align =} \StringTok{"c"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}ccc@{}}
+\caption{Sumas de Cuadrados Mod-Desv}\tabularnewline
+\toprule
+c & c1 & c2\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+c & c1 & c2\tabularnewline
+\midrule
+\endhead
+Modelo en desviacioes & TSS & 2610.59424\tabularnewline
+Modelo en desviacioes & ESS & 828.164615362709\tabularnewline
+Modelo en desviacioes & RSS & 1782.42962463729\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"TSS=ESS+RSS"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "TSS=ESS+RSS"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{TAAa_2s=}\NormalTok{ESSa_}\DecValTok{2}\OperatorTok{+}\NormalTok{RSSa_}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 2610.594
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"Prueba de normalidad Jarque-Bera"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Prueba de normalidad Jarque-Bera"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{jb.norm.test}\NormalTok{(ed_}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Jarque-Bera test for normality
+## 
+## data:  ed_2
+## JB = 1.0813, p-value = 0.465
+\end{verbatim}
+
+Se puede determinar por la prueba de jarque bera que los errores del
+modelo 2 estimado se distribuyen de manera normal y
+
+\hypertarget{tercer-punto}{%
+\section{Tercer Punto}\label{tercer-punto}}
+
+Se tienen datos son anuales en el periodo 1947 -- 2000 sobre las
+siguientes variables para la economía de US: C1 = Gastos de consumo
+real, Yd =Ingreso Real, Ri = Riqueza, y TI = Tasa de interés
+
+Modelo P3
+
+\[C1_{t}=\beta_1+\beta_2Yd_{t}+\beta_3RI_{t}+\beta_4TI_{t}+\mu_t\] \#\#
+Estimacion del modelo Beta2=Variacion enlos gastos con respecto a
+variacion en el ingreso real Beta3=Variacion en los gastos con respecto
+a una variacion en la riqueza disponible Beta4=Varacion en el gasto con
+respecto a una variacion en la tasa de interes Beta1=Intercepto en y=
+gasto autonomo
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"Estimar el modelo C1_t=B1+B2*Yd_t+B3*RI_t+B4*TI_t+U_t"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Estimar el modelo C1_t=B1+B2*Yd_t+B3*RI_t+B4*TI_t+U_t"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rm}\NormalTok{(}\DataTypeTok{list=}\KeywordTok{ls}\NormalTok{()) }\CommentTok{# rm remueve objetos, ls = lista}
+\KeywordTok{setwd}\NormalTok{(}\StringTok{'C://Users/f-pis/Desktop/Semestres/Archivos R'}\NormalTok{) }\CommentTok{#Establece el workDirectory}
+\CommentTok{#install.packages("readxl") # instala el paquete para leer Excel }
+\KeywordTok{library}\NormalTok{(readxl) }\CommentTok{#..library() Carga el paquete }
+\NormalTok{Datos_3P<-}\KeywordTok{read_excel}\NormalTok{(}\StringTok{"Datos_E3_Consumo.xls"}\NormalTok{) }\CommentTok{#read_excel lee el excel}
+\NormalTok{Datos_3P=}\KeywordTok{data.frame}\NormalTok{(Datos_3P)}\CommentTok{# Aqui se estable que Tiempo es una hoja de Excel}
+\NormalTok{Datos_3P}\OperatorTok{$}\NormalTok{c1<-}\KeywordTok{as.numeric}\NormalTok{(Datos_3P}\OperatorTok{$}\NormalTok{c1)}
+\NormalTok{Datos_3P}\OperatorTok{$}\NormalTok{yd<-}\KeywordTok{as.numeric}\NormalTok{(Datos_3P}\OperatorTok{$}\NormalTok{yd)}
+\NormalTok{Datos_3P}\OperatorTok{$}\NormalTok{Ri<-}\KeywordTok{as.numeric}\NormalTok{(Datos_3P}\OperatorTok{$}\NormalTok{Ri)}
+\NormalTok{Datos_3P}\OperatorTok{$}\NormalTok{ti<-}\KeywordTok{as.numeric}\NormalTok{(Datos_3P}\OperatorTok{$}\NormalTok{ti)}
+\KeywordTok{attach}\NormalTok{(Datos_3P) }\CommentTok{# attach() carga los datos}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## The following object is masked from Datos_1P:
+## 
+##     Date
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{kable}\NormalTok{(}\KeywordTok{head}\NormalTok{(Datos_3P),}\DataTypeTok{caption =} \StringTok{"Head Datos 3P "}\NormalTok{,}\DataTypeTok{align =} \StringTok{"c"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}ccccc@{}}
+\caption{Head Datos 3P}\tabularnewline
+\toprule
+Date & c1 & yd & Ri & ti\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Date & c1 & yd & Ri & ti\tabularnewline
+\midrule
+\endhead
+1947 & 975.5 & 1035.2 & 5166.8 & -10351.000\tabularnewline
+1948 & 998.1 & 1090.0 & 5280.8 & -4720.000\tabularnewline
+1949 & 1025.3 & 1095.6 & 5607.4 & 1044.000\tabularnewline
+1950 & 1090.9 & 1192.7 & 5759.5 & 0.407\tabularnewline
+1951 & 1107.1 & 1227.0 & 6086.1 & -5283.000\tabularnewline
+1952 & 1142.4 & 1266.8 & 6243.9 & -0.277\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(normtest) }\CommentTok{# carga el paquete de prueba de normalidad }
+
+\NormalTok{X_3P <-}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(}\DecValTok{1}\NormalTok{,Datos_3P[,}\DecValTok{3}\OperatorTok{:}\DecValTok{5}\NormalTok{]))}
+\NormalTok{Y_3P <-}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(Datos_3P[,}\DecValTok{2}\NormalTok{])}
+\NormalTok{XtX_}\DecValTok{3}\NormalTok{=}\KeywordTok{t}\NormalTok{(X_3P)}\OperatorTok{%*%}\NormalTok{X_3P  }\CommentTok{# Este es el resultado de multiplicar X traspuesta por X }
+\NormalTok{XtX_}\DecValTok{3}  \CommentTok{# X Traspuesta por X..... (X'*X)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            1           yd          Ri           ti
+## 1      54.00     173654.4      833684 6.703646e+04
+## yd 173654.40  699882672.2  3423310436 3.479660e+08
+## Ri 833684.00 3423310436.2 16999040180 1.711348e+09
+## ti  67036.46  347965965.4  1711348276 4.758595e+08
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{XtX_inv_}\DecValTok{3}\NormalTok{ <-}\StringTok{ }\KeywordTok{solve}\NormalTok{(XtX_}\DecValTok{3}\NormalTok{)  }\CommentTok{# LA FUNCION solve() halla la INVERSA de la matriz }
+\NormalTok{XtX_inv_}\DecValTok{3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                1            yd            Ri            ti
+## 1   1.138203e-01 -6.480331e-05  6.758945e-06  7.044779e-06
+## yd -6.480331e-05  1.325795e-07 -2.301159e-08 -5.060596e-09
+## Ri  6.758945e-06 -2.301159e-08  4.331587e-09  2.969349e-10
+## ti  7.044779e-06 -5.060596e-09  2.969349e-10  3.741649e-09
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Xty_}\DecValTok{3}\NormalTok{ <-}\StringTok{ }\KeywordTok{t}\NormalTok{(X_3P)}\OperatorTok{%*%}\NormalTok{Y_3P }\CommentTok{# Resultado de X traspuesta por y ... }
+\NormalTok{Xty_}\DecValTok{3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            [,1]
+## 1      155998.3
+## yd  631417771.8
+## Ri 3097719840.4
+## ti  312918407.2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b_}\DecValTok{3}\NormalTok{ <-}\StringTok{ }\NormalTok{XtX_inv_}\DecValTok{3}\OperatorTok{%*%}\NormalTok{Xty_}\DecValTok{3} \CommentTok{#  Resultado de los estimadores b = (Xt*X)inv*Xt*y}
+\StringTok{"Estos son los coeficientes estimados OLS"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Estos son los coeficientes estimados OLS"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b_}\DecValTok{3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             [,1]
+## 1  -20.422436191
+## yd   0.736848710
+## Ri   0.035418543
+## ti  -0.005724966
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"Estos son los Y estimados por el modelo "}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Estos son los Y estimados por el modelo "
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Ye_}\DecValTok{3}\NormalTok{ <-}\StringTok{ }\NormalTok{X_3P}\OperatorTok{%*%}\NormalTok{b_}\DecValTok{3} \CommentTok{#Calcula yt estimado}
+\CommentTok{#OJO estos son los resultados estimados de y de acuerdo a los valores encontrados de los coeficientes }
+
+
+\KeywordTok{plot}\NormalTok{(Y_3P,Ye_}\DecValTok{3}\NormalTok{, }\DataTypeTok{main =} \StringTok{"P3 Y Vs Y_estimado"}\NormalTok{)  }\CommentTok{# Se grafica Y de los datos iniciales (y)  contra Y estimado (yte)}
+\NormalTok{e_}\DecValTok{3}\NormalTok{ <-}\StringTok{ }\NormalTok{Y_3P }\OperatorTok{-}\StringTok{ }\NormalTok{Ye_}\DecValTok{3}  \CommentTok{# et es el vector de errores de estimacion (Ydado-Yestimado) }
+\KeywordTok{summary}\NormalTok{(e_}\DecValTok{3}\NormalTok{)  }\CommentTok{# Aqui se muestra en consola un summary de los errores de estimacion (et)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        V1           
+##  Min.   :-94.38719  
+##  1st Qu.:-22.63371  
+##  Median :  0.00934  
+##  Mean   :  0.00000  
+##  3rd Qu.: 19.66640  
+##  Max.   :128.44952
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(e_}\DecValTok{3}\NormalTok{, }\DataTypeTok{prob=}\OtherTok{TRUE}\NormalTok{ )   }\CommentTok{#Histograma de los errores de estimacion }
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{dnorm}\NormalTok{(x,}\DataTypeTok{mean =} \DecValTok{0}\NormalTok{,}\DataTypeTok{sd=}\DecValTok{9}\NormalTok{),}\DataTypeTok{col=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{3}\NormalTok{,}\DataTypeTok{add =} \OtherTok{TRUE}\NormalTok{) }\CommentTok{# Agrega una curva normal con media en cero y desviacion estandar 3,878 }
+\KeywordTok{boxplot}\NormalTok{(e_}\DecValTok{3}\NormalTok{, }\DataTypeTok{main=}\StringTok{"Boxplot e3"}\NormalTok{) }\CommentTok{# grafica de caja de los errores de estimacion (et)}
+\KeywordTok{jb.norm.test}\NormalTok{(e_}\DecValTok{3}\NormalTok{) }\CommentTok{# Prueba de normalidad Jarque-Bera }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Jarque-Bera test for normality
+## 
+## data:  e_3
+## JB = 11.193, p-value = 0.011
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{g1_qq <-}\StringTok{ }\KeywordTok{qqnorm}\NormalTok{(e_}\DecValTok{3}\NormalTok{,}\DataTypeTok{col=}\StringTok{"black"}\NormalTok{) }\CommentTok{# Genera una Q-Q plot que es un metodo para comparar distrubuciones de probabilidad de una muestra aleatoria y una de comparacion  }
+\KeywordTok{qqline}\NormalTok{(e_}\DecValTok{3}\NormalTok{,}\DataTypeTok{col=}\StringTok{"red"}\NormalTok{) }\CommentTok{# qqline agrega a la grafica anterior una linea de tendencia teorica de cuantiles de una distribucion normal }
+
+\CommentTok{# OTRA FORMA PARA YT vs YTE}
+\CommentTok{# De esta manera de grafica y y se agrega la linea LINES de yte estimado }
+
+\KeywordTok{plot}\NormalTok{(Y_3P,}\DataTypeTok{t=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Y observado contra Y estimado 3P"}\NormalTok{) }\CommentTok{#   "l" significa linea, p significa puntos}
+\KeywordTok{lines}\NormalTok{(Ye_}\DecValTok{3}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\DataTypeTok{x=}\DecValTok{10}\NormalTok{,}\DataTypeTok{y=}\DecValTok{5000}\NormalTok{,}\DataTypeTok{legend =} \KeywordTok{c}\NormalTok{(}\StringTok{"observado"}\NormalTok{,}\StringTok{"estimado"}\NormalTok{),}\DataTypeTok{lty =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{4}\NormalTok{),}\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{)) }\CommentTok{#"lty" significa 1=linea, 4= punto y linea }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-4-1} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-4-2} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-4-3} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-4-4} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-4-5} \end{center}
+
+Observamos en este modelo que la prueba de jarque bera tiene un
+p\_val\textless alpha, sin embargo sacamos conclusiones a partir de los
+graficos en donde se observa que Y vs Ye tiene fuerte relacion lineal,
+su boxplot tiene media en cero y ademas los errores de estimacion en la
+qqplot se asemejan mucho a la distribucion normal
+
+\hypertarget{estimacion-de-la-varianza-y-intervalos-de-confianza}{%
+\subsection{Estimacion de la varianza y Intervalos de
+confianza}\label{estimacion-de-la-varianza-y-intervalos-de-confianza}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#x=seq(-3,3,length=100)}
+\CommentTok{#y=seq(-3,3,length=100)}
+\CommentTok{#parabola=function(x,y) x^3+y^2}
+\CommentTok{#z=outer(x, y, parabola)}
+\CommentTok{#persp(x,y,z,theta = 45)}
+\CommentTok{#image(x,y,z)}
+\CommentTok{#contour(x,y,z,add=T)}
+
+
+\CommentTok{# Recordar que b~N(beta,Sigma**2(X'X)Inv) Donde b es el vector de estimadores hallados }
+
+\CommentTok{# Recordar que Var b_estimado=s**2*(X'X)inv}
+\NormalTok{RSS_}\DecValTok{3}\NormalTok{=}\KeywordTok{t}\NormalTok{(e_}\DecValTok{3}\NormalTok{)}\OperatorTok{%*%}\NormalTok{e_}\DecValTok{3}
+\NormalTok{S2_}\DecValTok{3}\NormalTok{<-}\StringTok{ }\NormalTok{RSS_}\DecValTok{3}\NormalTok{[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{]}\OperatorTok{/}\DecValTok{51} \CommentTok{# Aqui se hala la varianza S**2estimado=RSS/(n-k)=et**2/(n-k) ES UN ESCALAR}
+\NormalTok{Var_b_}\DecValTok{3}\NormalTok{=S2_}\DecValTok{3}\OperatorTok{*}\NormalTok{XtX_inv_}\DecValTok{3} \CommentTok{# Matriz de varianzas y covarianzas ___Los elementos de la diagonal de la matriz contienen las varianzas de las variables, mientras que los elementos que se encuentran fuera de la diagonal contienen las covarianzas entre todos los pares posibles de variables.}
+\NormalTok{S2b1_}\DecValTok{3}\NormalTok{=Var_b_}\DecValTok{3}\NormalTok{[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{]}
+\NormalTok{S2b2_}\DecValTok{3}\NormalTok{=Var_b_}\DecValTok{3}\NormalTok{[}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{]}
+\NormalTok{S2b3_}\DecValTok{3}\NormalTok{=Var_b_}\DecValTok{3}\NormalTok{[}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{]}
+\NormalTok{S2b4_}\DecValTok{3}\NormalTok{=Var_b_}\DecValTok{3}\NormalTok{[}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{]}
+
+\NormalTok{sb1=}\KeywordTok{sqrt}\NormalTok{(S2b1_}\DecValTok{3}\NormalTok{)}
+\NormalTok{sb2=}\KeywordTok{sqrt}\NormalTok{(S2b2_}\DecValTok{3}\NormalTok{)}
+\NormalTok{sb3=}\KeywordTok{sqrt}\NormalTok{(S2b3_}\DecValTok{3}\NormalTok{)}
+\NormalTok{sb4=}\KeywordTok{sqrt}\NormalTok{(S2b4_}\DecValTok{3}\NormalTok{)}
+
+
+\CommentTok{# Recordar que para los intervalos de confianza se tiene que }
+\CommentTok{# Intervalo= b1 +- t_(alfa/2)*S_b1  con n-2 grados de libertad}
+\NormalTok{ta2=}\KeywordTok{qt}\NormalTok{(}\FloatTok{0.025}\NormalTok{,}\DecValTok{51}\NormalTok{,}\DataTypeTok{lower.tail =} \OtherTok{FALSE}\NormalTok{)   }\CommentTok{# aqui se obtiene la funcion de quantiles de la t-Student con a/2=0.025  >>>}
+\NormalTok{ta2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.007584
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lib1=b_}\DecValTok{3}\NormalTok{[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{]}\OperatorTok{-}\NormalTok{ta2}\OperatorTok{*}\NormalTok{sb1   }\CommentTok{# Aqui se calcula el extremo superior e inferior del intervalo}
+\NormalTok{lib1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         1 
+## -46.47431
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lsb1=b_}\DecValTok{3}\NormalTok{[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{ta2}\OperatorTok{*}\NormalTok{sb1}
+\NormalTok{lsb1 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        1 
+## 5.629434
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lib2=b_}\DecValTok{3}\NormalTok{[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{]}\OperatorTok{-}\NormalTok{ta2}\OperatorTok{*}\NormalTok{sb2}
+\NormalTok{lib2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        yd 
+## 0.7087318
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lsb2=b_}\DecValTok{3}\NormalTok{[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{ta2}\OperatorTok{*}\NormalTok{sb2}
+\NormalTok{lsb2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        yd 
+## 0.7649656
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lib3=b_}\DecValTok{3}\NormalTok{[}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{]}\OperatorTok{-}\NormalTok{ta2}\OperatorTok{*}\NormalTok{sb3}
+\NormalTok{lib3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Ri 
+## 0.03033633
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lsb3=b_}\DecValTok{3}\NormalTok{[}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{ta2}\OperatorTok{*}\NormalTok{sb3}
+\NormalTok{lsb3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Ri 
+## 0.04050075
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lib4=b_}\DecValTok{3}\NormalTok{[}\DecValTok{4}\NormalTok{,}\DecValTok{1}\NormalTok{]}\OperatorTok{-}\NormalTok{ta2}\OperatorTok{*}\NormalTok{sb4}
+\NormalTok{lib4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          ti 
+## -0.01044843
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lsb4=b_}\DecValTok{3}\NormalTok{[}\DecValTok{4}\NormalTok{,}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{ta2}\OperatorTok{*}\NormalTok{sb4}
+\NormalTok{lsb4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           ti 
+## -0.001001504
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{colum1<-}\KeywordTok{c}\NormalTok{(}\StringTok{"Coef"}\NormalTok{,}\StringTok{"b1"}\NormalTok{,}\StringTok{"b2"}\NormalTok{,}\StringTok{"b3"}\NormalTok{,}\StringTok{"b4"}\NormalTok{)}
+\NormalTok{colum2<-}\KeywordTok{c}\NormalTok{(}\StringTok{"Estimación",b_3[1,1], b_3[2,1], b_3[3,1], b_3[4,1])}
+\StringTok{colum3<-c("}\NormalTok{Varianza}\StringTok{",S2b1_3, S2b2_3, S2b3_3, S2b4_3)}
+\StringTok{colum4<-c("}\NormalTok{Error_Estandar}\StringTok{",sb1, sb2, sb3, sb4)}
+\StringTok{colum5<-c("}\NormalTok{Int Inferior}\StringTok{",lib1,lib2,lib3,lib4)}
+\StringTok{colum6<-c("}\NormalTok{Int Superior}\StringTok{",lsb1,lsb2,lsb3,lsb4)}
+\StringTok{kable(Tabla_Coef_Var <- cbind(colum1,colum2,colum3,colum4,colum5,colum6))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lllllll@{}}
+\toprule
+& colum1 & colum2 & colum3 & colum4 & colum5 & colum6\tabularnewline
+\midrule
+\endhead
+& Coef & Estimación & Varianza & Error\_Estandar & Int Inferior & Int
+Superior\tabularnewline
+1 & b1 & -20.4224361911529 & 168.395494057141 & 12.9767289428862 &
+-46.474306608679 & 5.62943422637328\tabularnewline
+yd & b2 & 0.736848709961494 & 0.000196149386803981 & 0.0140053342267859
+& 0.70873182826995 & 0.764965591653038\tabularnewline
+Ri & b3 & 0.0354185427496093 & 6.4085177347898e-06 & 0.00253150503353041
+& 0.0303363343298208 & 0.0405007511693978\tabularnewline
+ti & b4 & -0.00572496640457398 & 5.53571321024604e-06 &
+0.00235280964173603 & -0.0104484288559659 &
+-0.00100150395318211\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{prueba-de-restricciones-lineales-ho4b2-3b4-0-ha4b2-3b4-0}{%
+\subsection{PRUEBA DE RESTRICCIONES LINEALES: Ho:4B2 + 3B4 = 0 ; Ha:4B2
++ 3B4 =!
+0}\label{prueba-de-restricciones-lineales-ho4b2-3b4-0-ha4b2-3b4-0}}
+
+Para esta restriccion lineal usamos la prueba F
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Se aplica la misma prueba F que se uso para la prueba de significancia de la regresion }
+
+\NormalTok{R=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{R=}\KeywordTok{t}\NormalTok{(R)}
+\NormalTok{R }\CommentTok{#  Matriz de coeficientes de las restricciones 2x5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3] [,4]
+## [1,]    0    4    0    3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{r=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{)   }\CommentTok{# vector fila r}
+\NormalTok{r}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Aqui se vuelve a construir la estadistica de prueba F}
+\NormalTok{p1=R}\OperatorTok{%*%}\NormalTok{b_}\DecValTok{3}\OperatorTok{-}\NormalTok{r  }
+\NormalTok{p1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         [,1]
+## [1,] 2.93022
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p0=XtX_inv_}\DecValTok{3}\OperatorTok{%*%}\KeywordTok{t}\NormalTok{(R)}
+\StringTok{"XtX_inv*Rt"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "XtX_inv*Rt"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             [,1]
+## 1  -2.380789e-04
+## yd  5.151362e-07
+## Ri -9.115554e-08
+## ti -9.017439e-09
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p2=}\KeywordTok{solve}\NormalTok{(R}\OperatorTok{%*%}\NormalTok{XtX_inv_}\DecValTok{3}\OperatorTok{%*%}\KeywordTok{t}\NormalTok{(R))  }\CommentTok{# Inversa }
+\NormalTok{p2 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 491764.8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p3=}\KeywordTok{t}\NormalTok{(p1)}\OperatorTok{%*%}\NormalTok{p2}\OperatorTok{%*%}\NormalTok{p1     }
+\NormalTok{p3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         [,1]
+## [1,] 4222385
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fc=(p3}\OperatorTok{/}\DecValTok{1}\NormalTok{)}\OperatorTok{/}\NormalTok{S2_}\DecValTok{3}    \CommentTok{# Estadistica F=[(Rb-r)'(R(X'X)^-1*R')^-1*(Rb-r)/#deRestc]/S2    S2=RSS/n-k}
+\StringTok{"F_Valor "}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "F_Valor "
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fc}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 2853.956
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pv=}\KeywordTok{pf}\NormalTok{(fc,}\DecValTok{1}\NormalTok{,}\DecValTok{51}\NormalTok{,}\DataTypeTok{lower.tail =}\NormalTok{ F)    }\CommentTok{# Recordar que el comando pf() nos da la probabilidad de una distribucion F }
+\StringTok{"Probabilidad _ F"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Probabilidad _ F"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pv}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              [,1]
+## [1,] 1.917373e-46
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Hallamos los estimadores restringidos br}
+
+\NormalTok{br=b_}\DecValTok{3}\OperatorTok{+}\NormalTok{XtX_inv_}\DecValTok{3}\OperatorTok{%*%}\KeywordTok{t}\NormalTok{(R)}\OperatorTok{%*%}\NormalTok{p2}\OperatorTok{%*%}\NormalTok{(r}\OperatorTok{-}\NormalTok{R}\OperatorTok{%*%}\NormalTok{b_}\DecValTok{3}\NormalTok{)  }\CommentTok{# Donde p2=solve(R%*%XtX_inv%*%t(R))}
+\StringTok{"El estimador OLS restringido es"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "El estimador OLS restringido es"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{br}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             [,1]
+## 1  322.644249696
+## yd  -0.005451729
+## Ri   0.166771752
+## ti   0.007268972
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{prueba=}\DecValTok{4}\OperatorTok{*}\NormalTok{br[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\DecValTok{3}\OperatorTok{*}\NormalTok{br[}\DecValTok{4}\NormalTok{,}\DecValTok{1}\NormalTok{]}
+\StringTok{"Vefificación de la restricción 1"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Vefificación de la restricción 1"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{prueba}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            yd 
+## -2.844947e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ye_r=X_3P}\OperatorTok{%*%}\NormalTok{br  }\CommentTok{# Vector de valores y_estimados_restringidos  Se usa la matriz X para hallar el intercepto }
+\NormalTok{et_r=Y_3P}\OperatorTok{-}\NormalTok{ye_r  }\CommentTok{# Vector de errores de estimacion restringidos }
+\NormalTok{RSSr=}\KeywordTok{t}\NormalTok{(et_r)}\OperatorTok{%*%}\NormalTok{et_r   }\CommentTok{# RSS= e^2}
+\StringTok{"El RSSr es"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "El RSSr es"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RSSr}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         [,1]
+## [1,] 4297839
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fc1=((RSSr}\OperatorTok{-}\NormalTok{RSS_}\DecValTok{3}\NormalTok{)}\OperatorTok{/}\DecValTok{1}\NormalTok{)}\OperatorTok{/}\NormalTok{S2_}\DecValTok{3}     \CommentTok{#  Valor de F calculado para el modelo restringido }
+\StringTok{"El Fc de la ecuación restringida (44) es"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "El Fc de la ecuación restringida (44) es"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fc1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 2853.956
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ye_r <-}\StringTok{ }\NormalTok{X_3P}\OperatorTok{%*%}\NormalTok{br   }\CommentTok{# Vector de Y estimado }
+\NormalTok{etr <-}\StringTok{  }\NormalTok{Y_3P}\OperatorTok{-}\NormalTok{ye_r      }\CommentTok{# Vector de errores de estimacion }
+\NormalTok{TSSa=}\KeywordTok{t}\NormalTok{(Y_3P)}\OperatorTok{%*%}\NormalTok{Y_3P      }\CommentTok{# Suma de cuadrados totales }
+\StringTok{"TSS con restricciones lineales"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "TSS con restricciones lineales"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{TSSa}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           [,1]
+## [1,] 570074234
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ESSa=}\KeywordTok{t}\NormalTok{(br)}\OperatorTok{%*%}\StringTok{ }\NormalTok{XtX_}\DecValTok{3} \OperatorTok{%*%}\NormalTok{br    }\CommentTok{# SUma de cuadrados Estimados  b2t*XatXa*b2}
+\StringTok{"ESS con restricciones lineales"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "ESS con restricciones lineales"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ESSa}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           [,1]
+## [1,] 565776395
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RSSa=}\KeywordTok{t}\NormalTok{(et_r)}\OperatorTok{%*%}\NormalTok{et_r }\CommentTok{# Suma de cuadrados residuales eta**2}
+\StringTok{"RSS con restricciones lineales"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "RSS con restricciones lineales"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RSSa}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         [,1]
+## [1,] 4297839
+\end{verbatim}
+
+\hypertarget{cuarto-punto}{%
+\section{Cuarto Punto}\label{cuarto-punto}}
+
+\begin{itemize}
+\tightlist
+\item
+  CAR: Stock de vehículos en USA
+\item
+  QMG: Consumo de gasolina en miles de galones
+\item
+  PMG: Precio de la gasolina en dólares
+\item
+  POP: población en miles
+\item
+  RGNP: PIB real en miles de millones de dólares de 1982
+\item
+  PGNP: deflactor del PIB
+\end{itemize}
+
+\[Estimacion\ del \ modelo\ 4.1\ y \ 4.2\]
+\[ln(QMG)=\beta_1+\beta_2\ln(CAR)+\beta_3\ln(POT)+\beta_4\ln(RGNP)+\beta_5\ln(PGNP)+\beta_6\ln(PMG)+\mu_t\  \ (4.1)\]
+
+\[ln(QMG/CAR)=\lambda_1+\lambda_2\ln(RGNP/POT)+\lambda_3\ln(CAR/POT)+\lambda_4\ln(PMG/PGNP)+\mu_t\  \ (4.2)\]
+
+\hypertarget{estimacion-del-modelo-4.1-y-4.2-con-los-datos-1950-1972n1}{%
+\subsection{Estimacion del modelo 4.1 y 4.2 con los datos
+1950-1972=n1}\label{estimacion-del-modelo-4.1-y-4.2-con-los-datos-1950-1972n1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rm}\NormalTok{(}\DataTypeTok{list=}\KeywordTok{ls}\NormalTok{()) }\CommentTok{# rm remueve objetos, ls = lista}
+\KeywordTok{setwd}\NormalTok{(}\StringTok{'C://Users/f-pis/Desktop/Semestres/Archivos R'}\NormalTok{) }\CommentTok{#Establece el workDirectory}
+\CommentTok{#install.packages("readxl") # instala el paquete para leer Excel }
+\KeywordTok{library}\NormalTok{(readxl) }\CommentTok{#..library() Carga el paquete }
+\NormalTok{Datos_4PT<-}\KeywordTok{read_excel}\NormalTok{(}\StringTok{"Datos_E4.xls"}\NormalTok{) }\CommentTok{#read_excel lee el excel}
+\NormalTok{Datos_4P=}\KeywordTok{data.frame}\NormalTok{(Datos_4PT[}\DecValTok{1}\OperatorTok{:}\DecValTok{23}\NormalTok{,])}
+
+\NormalTok{lnQMG=}\KeywordTok{log}\NormalTok{(Datos_4P}\OperatorTok{$}\NormalTok{QMG)}
+\NormalTok{lnCAR=}\KeywordTok{log}\NormalTok{(Datos_4P}\OperatorTok{$}\NormalTok{CAR)}
+\NormalTok{lnPOP=}\KeywordTok{log}\NormalTok{(Datos_4P}\OperatorTok{$}\NormalTok{POP)}
+\NormalTok{lnRGNP=}\KeywordTok{log}\NormalTok{(Datos_4P}\OperatorTok{$}\NormalTok{RGNP)}
+\NormalTok{lnPGNP=}\KeywordTok{log}\NormalTok{(Datos_4P}\OperatorTok{$}\NormalTok{PGNP)}
+\NormalTok{lnPMG=}\KeywordTok{log}\NormalTok{(Datos_4P}\OperatorTok{$}\NormalTok{PMG)}
+
+\NormalTok{Reg_}\FloatTok{4.1}\NormalTok{<-}\KeywordTok{lm}\NormalTok{(lnQMG}\OperatorTok{~}\NormalTok{lnCAR}\OperatorTok{+}\NormalTok{lnPOP}\OperatorTok{+}\NormalTok{lnRGNP}\OperatorTok{+}\NormalTok{lnPGNP}\OperatorTok{+}\NormalTok{lnPMG)}
+\KeywordTok{summary}\NormalTok{(Reg_}\FloatTok{4.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = lnQMG ~ lnCAR + lnPOP + lnRGNP + lnPGNP + lnPMG)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.041097 -0.005890 -0.000394  0.010531  0.025579 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)   
+## (Intercept)   1.6801     2.7936   0.601  0.55549   
+## lnCAR         0.3635     0.5152   0.706  0.48994   
+## lnPOP         1.0539     0.9048   1.165  0.26019   
+## lnRGNP       -0.3114     0.1625  -1.916  0.07231 . 
+## lnPGNP        0.1250     0.1580   0.791  0.44000   
+## lnPMG         1.0481     0.2682   3.907  0.00113 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.01872 on 17 degrees of freedom
+## Multiple R-squared:  0.9952, Adjusted R-squared:  0.9937 
+## F-statistic: 699.8 on 5 and 17 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{TSS_}\FloatTok{4.1}\NormalTok{=}\KeywordTok{sum}\NormalTok{((lnQMG)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{-}\KeywordTok{length}\NormalTok{(lnQMG)}\OperatorTok{*}\KeywordTok{mean}\NormalTok{(lnQMG)}\OperatorTok{^}\DecValTok{2}
+\NormalTok{TSS_}\FloatTok{4.1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.232235
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{e_}\FloatTok{4.1}\NormalTok{=}\KeywordTok{resid}\NormalTok{(Reg_}\FloatTok{4.1}\NormalTok{)}
+\NormalTok{RSS_}\FloatTok{4.1}\NormalTok{=}\KeywordTok{t}\NormalTok{(e_}\FloatTok{4.1}\NormalTok{)}\OperatorTok{%*%}\NormalTok{e_}\FloatTok{4.1}
+\NormalTok{RSS_}\FloatTok{4.11}\NormalTok{=}\KeywordTok{deviance}\NormalTok{(Reg_}\FloatTok{4.1}\NormalTok{)}
+\NormalTok{Ye_}\FloatTok{4.1}\NormalTok{<-}\KeywordTok{fitted}\NormalTok{(Reg_}\FloatTok{4.1}\NormalTok{)}
+\NormalTok{ESS_}\FloatTok{4.1}\NormalTok{=}\KeywordTok{sum}\NormalTok{((Ye_}\FloatTok{4.1}\NormalTok{)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{-}\KeywordTok{length}\NormalTok{(Ye_}\FloatTok{4.1}\NormalTok{)}\OperatorTok{*}\KeywordTok{mean}\NormalTok{(lnQMG)}\OperatorTok{^}\DecValTok{2}
+
+\NormalTok{col1=}\KeywordTok{c}\NormalTok{(}\StringTok{"ESS Modelo 4 Rest"}\NormalTok{,ESS_}\FloatTok{4.1}\NormalTok{)}
+\NormalTok{col2=}\KeywordTok{c}\NormalTok{(}\StringTok{"TSS Modelo 4 Rest"}\NormalTok{,TSS_}\FloatTok{4.1}\NormalTok{)}
+\NormalTok{col3=}\KeywordTok{c}\NormalTok{(}\StringTok{"RSS Modelo 4 Rest"}\NormalTok{,RSS_}\FloatTok{4.1}\NormalTok{)}
+\NormalTok{tab4=}\KeywordTok{cbind}\NormalTok{(col1,col2,col3)}
+\KeywordTok{kable}\NormalTok{(tab4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+col1 & col2 & col3\tabularnewline
+\midrule
+\endhead
+ESS Modelo 4 Rest & TSS Modelo 4 Rest & RSS Modelo 4 Rest\tabularnewline
+1.22627695174197 & 1.23223511095148 & 0.00595815921018831\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(Reg_}\FloatTok{4.1}\NormalTok{)}
+
+\ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\KeywordTok{require}\NormalTok{(}\StringTok{'corrplot'}\NormalTok{)) }
+\NormalTok{\{}
+  \KeywordTok{install.packages}\NormalTok{(}\StringTok{'corrplot'}\NormalTok{);}
+  \KeywordTok{library}\NormalTok{(corrplot);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: corrplot
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'corrplot' was built under R version 3.6.3
+\end{verbatim}
+
+\begin{verbatim}
+## corrplot 0.84 loaded
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"corrplot"}\NormalTok{)}
+\NormalTok{col4 <-}\StringTok{ }\KeywordTok{colorRampPalette}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"#7F0000"}\NormalTok{, }\StringTok{"red"}\NormalTok{, }\StringTok{"#FF7F00"}\NormalTok{, }\StringTok{"yellow"}\NormalTok{, }\StringTok{"#7FFF7F"}\NormalTok{,}
+                           \StringTok{"cyan"}\NormalTok{, }\StringTok{"#007FFF"}\NormalTok{, }\StringTok{"blue"}\NormalTok{, }\StringTok{"#00007F"}\NormalTok{))}
+\NormalTok{MD<-}\KeywordTok{cor}\NormalTok{(Datos_4P[,}\DecValTok{2}\OperatorTok{:}\DecValTok{7}\NormalTok{])}
+\KeywordTok{corrplot}\NormalTok{(MD,}\DataTypeTok{method=}\StringTok{"number"}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Grafica de Correlaciones"}\NormalTok{,}\DataTypeTok{col =} \KeywordTok{col4}\NormalTok{(}\DecValTok{20}\NormalTok{),}\DataTypeTok{tl.col =} \StringTok{"black"}\NormalTok{)}
+\KeywordTok{pairs}\NormalTok{(lnQMG}\OperatorTok{~}\NormalTok{lnCAR}\OperatorTok{+}\NormalTok{lnPOP}\OperatorTok{+}\NormalTok{lnRGNP}\OperatorTok{+}\NormalTok{lnPGNP}\OperatorTok{+}\NormalTok{lnPMG,}\DataTypeTok{data =}\NormalTok{ Datos_4P)}
+
+\KeywordTok{library}\NormalTok{(GGally)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'GGally' was built under R version 3.6.3
+\end{verbatim}
+
+\begin{verbatim}
+## Registered S3 method overwritten by 'GGally':
+##   method from   
+##   +.gg   ggplot2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggpairs}\NormalTok{(Datos_4P[,}\DecValTok{2}\OperatorTok{:}\DecValTok{7}\NormalTok{], }\DataTypeTok{lower =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{continuous =} \StringTok{"smooth"}\NormalTok{),}
+        \DataTypeTok{diag =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{continuous =} \StringTok{"bar"}\NormalTok{), }\DataTypeTok{axisLabels =} \StringTok{"none"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in check_and_set_ggpairs_defaults("diag", diag, continuous =
+## "densityDiag", : Changing diag$continuous from 'bar' to 'barDiag'
+\end{verbatim}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Estimacion del modelo 4.2}
+
+\NormalTok{lnY4=}\KeywordTok{log}\NormalTok{(Datos_4P}\OperatorTok{$}\NormalTok{QMG}\OperatorTok{/}\NormalTok{Datos_4P}\OperatorTok{$}\NormalTok{CAR)}
+\NormalTok{lnx1=}\KeywordTok{log}\NormalTok{(Datos_4P}\OperatorTok{$}\NormalTok{RGNP}\OperatorTok{/}\NormalTok{Datos_4P}\OperatorTok{$}\NormalTok{POP)}
+\NormalTok{lnx2=}\KeywordTok{log}\NormalTok{(Datos_4P}\OperatorTok{$}\NormalTok{CAR}\OperatorTok{/}\NormalTok{Datos_4P}\OperatorTok{$}\NormalTok{POP)}
+\NormalTok{lnx3=}\KeywordTok{log}\NormalTok{(Datos_4P}\OperatorTok{$}\NormalTok{PMG}\OperatorTok{/}\NormalTok{Datos_4P}\OperatorTok{$}\NormalTok{PGNP)}
+
+\NormalTok{Reg_}\FloatTok{4.2}\NormalTok{<-}\KeywordTok{lm}\NormalTok{(lnY4}\OperatorTok{~}\NormalTok{lnx1}\OperatorTok{+}\NormalTok{lnx2}\OperatorTok{+}\NormalTok{lnx3)}
+\KeywordTok{summary}\NormalTok{(Reg_}\FloatTok{4.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = lnY4 ~ lnx1 + lnx2 + lnx3)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.05079 -0.03639  0.01337  0.02515  0.04526 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)
+## (Intercept) -0.30653    2.37844  -0.129    0.899
+## lnx1        -0.13972    0.23851  -0.586    0.565
+## lnx2         0.05446    0.28276   0.193    0.849
+## lnx3         0.18527    0.27882   0.664    0.514
+## 
+## Residual standard error: 0.03478 on 19 degrees of freedom
+## Multiple R-squared:  0.389,  Adjusted R-squared:  0.2925 
+## F-statistic: 4.032 on 3 and 19 DF,  p-value: 0.02238
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{TSS_}\FloatTok{4.2}\NormalTok{=}\KeywordTok{sum}\NormalTok{((lnY4)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{-}\KeywordTok{length}\NormalTok{(lnY4)}\OperatorTok{*}\KeywordTok{mean}\NormalTok{(lnY4)}\OperatorTok{^}\DecValTok{2}
+\NormalTok{e_}\FloatTok{4.2}\NormalTok{=}\KeywordTok{resid}\NormalTok{(Reg_}\FloatTok{4.2}\NormalTok{)}
+\NormalTok{RSS_}\FloatTok{4.2}\NormalTok{=}\KeywordTok{t}\NormalTok{(e_}\FloatTok{4.2}\NormalTok{)}\OperatorTok{%*%}\NormalTok{e_}\FloatTok{4.2}
+\NormalTok{RSS_}\FloatTok{4.21}\NormalTok{=}\KeywordTok{deviance}\NormalTok{(Reg_}\FloatTok{4.2}\NormalTok{)}
+\NormalTok{Ye_}\FloatTok{4.2}\NormalTok{<-}\KeywordTok{fitted}\NormalTok{(Reg_}\FloatTok{4.2}\NormalTok{)}
+\NormalTok{ESS_}\FloatTok{4.2}\NormalTok{=}\KeywordTok{sum}\NormalTok{((Ye_}\FloatTok{4.2}\NormalTok{)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{-}\KeywordTok{length}\NormalTok{(Ye_}\FloatTok{4.2}\NormalTok{)}\OperatorTok{*}\KeywordTok{mean}\NormalTok{(lnY4)}\OperatorTok{^}\DecValTok{2}
+
+\NormalTok{col1=}\KeywordTok{c}\NormalTok{(}\StringTok{"ESS Modelo 4 Rest"}\NormalTok{,ESS_}\FloatTok{4.2}\NormalTok{)}
+\NormalTok{col2=}\KeywordTok{c}\NormalTok{(}\StringTok{"TSS Modelo  Rest"}\NormalTok{,TSS_}\FloatTok{4.2}\NormalTok{)}
+\NormalTok{col3=}\KeywordTok{c}\NormalTok{(}\StringTok{"RSS Modelo 4 Rest"}\NormalTok{,RSS_}\FloatTok{4.2}\NormalTok{)}
+\NormalTok{tab4}\FloatTok{.2}\NormalTok{=}\KeywordTok{cbind}\NormalTok{(col1,col2,col3)}
+\KeywordTok{kable}\NormalTok{(tab4}\FloatTok{.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+col1 & col2 & col3\tabularnewline
+\midrule
+\endhead
+ESS Modelo 4 Rest & TSS Modelo Rest & RSS Modelo 4 Rest\tabularnewline
+0.0146323457937422 & 0.0376153514771659 &
+0.0229830056834237\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(Reg_}\FloatTok{4.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-7-1} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-7-2} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-7-3} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-7-4} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-7-5} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-7-6} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-7-7} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-7-8} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-7-9} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-7-10} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-7-11} \end{center}
+
+lnRGNP -0.3114 0.1625 -1.916 0.07231 . lnPMG 1.0481 0.2682 3.907 0.00113
+** Estas son las variables significativas del modelo 3 por lo que
+podemos eliminarlas otras variables explicativas no significativas,
+podemos observar que el R2 es muy alto, explica el 99,52\% de la
+varianza de modelo, y el p\_valor \textless{} alpha, por lo tanto
+concluimos que la regresion es significativa.
+
+(Intercept) -0.30653 2.37844 -0.129 0.899 lnx1 -0.13972 0.23851 -0.586
+0.565 lnx2 0.05446 0.28276 0.193 0.849 lnx3 0.18527 0.27882 0.664 0.514
+Observamos que en el segundo modelo no nay variables significativas, por
+lo que este modelo a su vez solo esplica un R2 de 0,389 lo que es un
+38\% de la varianza del modelo, en la grafica qqplot se observan serias
+desviaciones respecto de la normal teorica.
+
+\hypertarget{reestimacion-de-los-modelos-usando-la-muestra-completa-1950-1987}{%
+\subsection{Reestimacion de los modelos usando la muestra completa
+1950-1987}\label{reestimacion-de-los-modelos-usando-la-muestra-completa-1950-1987}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Estimacion del modelo 4.1}
+\StringTok{"Estimacion del modelo 4.1"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Estimacion del modelo 4.1"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lnQMGt=}\KeywordTok{log}\NormalTok{(Datos_4PT}\OperatorTok{$}\NormalTok{QMG)}
+\NormalTok{lnCARt=}\KeywordTok{log}\NormalTok{(Datos_4PT}\OperatorTok{$}\NormalTok{CAR)}
+\NormalTok{lnPOPt=}\KeywordTok{log}\NormalTok{(Datos_4PT}\OperatorTok{$}\NormalTok{POP)}
+\NormalTok{lnRGNPt=}\KeywordTok{log}\NormalTok{(Datos_4PT}\OperatorTok{$}\NormalTok{RGNP)}
+\NormalTok{lnPGNPt=}\KeywordTok{log}\NormalTok{(Datos_4PT}\OperatorTok{$}\NormalTok{PGNP)}
+\NormalTok{lnPMGt=}\KeywordTok{log}\NormalTok{(Datos_4PT}\OperatorTok{$}\NormalTok{PMG)}
+\NormalTok{X4}\FloatTok{.1}\NormalTok{=}\KeywordTok{cbind}\NormalTok{(lnCARt,lnPOPt,lnRGNPt,lnPGNPt,lnPMGt)}
+
+
+\NormalTok{Reg_}\FloatTok{4.1}\NormalTok{T<-}\KeywordTok{lm}\NormalTok{(lnQMGt}\OperatorTok{~}\NormalTok{lnCARt}\OperatorTok{+}\NormalTok{lnPOPt}\OperatorTok{+}\NormalTok{lnRGNPt}\OperatorTok{+}\NormalTok{lnPGNPt}\OperatorTok{+}\NormalTok{lnPMGt)}
+\KeywordTok{summary}\NormalTok{(Reg_}\FloatTok{4.1}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = lnQMGt ~ lnCARt + lnPOPt + lnRGNPt + lnPGNPt + lnPMGt)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.059240 -0.020056 -0.001106  0.027460  0.041927 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  9.98698    2.62062   3.811 0.000594 ***
+## lnCARt       2.55992    0.22813  11.221 1.26e-12 ***
+## lnPOPt      -2.87808    0.45344  -6.347 3.99e-07 ***
+## lnRGNPt     -0.42927    0.14838  -2.893 0.006811 ** 
+## lnPGNPt     -0.17887    0.06336  -2.823 0.008115 ** 
+## lnPMGt      -0.14111    0.04340  -3.252 0.002704 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.02825 on 32 degrees of freedom
+## Multiple R-squared:  0.9927, Adjusted R-squared:  0.9915 
+## F-statistic: 868.8 on 5 and 32 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(Reg_}\FloatTok{4.1}\NormalTok{T)}
+\CommentTok{# Estimacion del modelo 4.2}
+\StringTok{"Estimacion del modelo 4.2"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Estimacion del modelo 4.2"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lnY4t=}\KeywordTok{log}\NormalTok{(Datos_4PT}\OperatorTok{$}\NormalTok{QMG}\OperatorTok{/}\NormalTok{Datos_4PT}\OperatorTok{$}\NormalTok{CAR)}
+\NormalTok{lnx1t=}\KeywordTok{log}\NormalTok{(Datos_4PT}\OperatorTok{$}\NormalTok{RGNP}\OperatorTok{/}\NormalTok{Datos_4PT}\OperatorTok{$}\NormalTok{POP)}
+\NormalTok{lnx2t=}\KeywordTok{log}\NormalTok{(Datos_4PT}\OperatorTok{$}\NormalTok{CAR}\OperatorTok{/}\NormalTok{Datos_4PT}\OperatorTok{$}\NormalTok{POP)}
+\NormalTok{lnx3t=}\KeywordTok{log}\NormalTok{(Datos_4PT}\OperatorTok{$}\NormalTok{PMG}\OperatorTok{/}\NormalTok{Datos_4PT}\OperatorTok{$}\NormalTok{PGNP)}
+\NormalTok{X4=}\KeywordTok{cbind}\NormalTok{(lnx1t,lnx2t,lnx3t)}
+
+
+\NormalTok{Reg_}\FloatTok{4.2}\NormalTok{T<-}\KeywordTok{lm}\NormalTok{(lnY4t}\OperatorTok{~}\NormalTok{lnx1t}\OperatorTok{+}\NormalTok{lnx2t}\OperatorTok{+}\NormalTok{lnx3t)}
+\KeywordTok{summary}\NormalTok{(Reg_}\FloatTok{4.2}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = lnY4t ~ lnx1t + lnx2t + lnx3t)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.109139 -0.045609  0.000628  0.051406  0.110555 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)  
+## (Intercept) -5.85398    3.10248  -1.887   0.0677 .
+## lnx1t       -0.69046    0.29337  -2.354   0.0245 *
+## lnx2t        0.28874    0.27723   1.041   0.3050  
+## lnx3t       -0.14313    0.07488  -1.911   0.0644 .
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.0605 on 34 degrees of freedom
+## Multiple R-squared:  0.7415, Adjusted R-squared:  0.7187 
+## F-statistic: 32.51 on 3 and 34 DF,  p-value: 4.249e-10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{RSS_R=}\KeywordTok{deviance}\NormalTok{(Reg_}\FloatTok{4.1}\NormalTok{T))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.02553086
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"Regresion con la muestra 2 n2"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Regresion con la muestra 2 n2"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Reg_}\FloatTok{4.2}\NormalTok{F<-}\KeywordTok{lm}\NormalTok{(lnY4t[}\DecValTok{23}\OperatorTok{:}\DecValTok{38}\NormalTok{]}\OperatorTok{~}\NormalTok{lnx1t[}\DecValTok{23}\OperatorTok{:}\DecValTok{38}\NormalTok{]}\OperatorTok{+}\NormalTok{lnx2t[}\DecValTok{23}\OperatorTok{:}\DecValTok{38}\NormalTok{]}\OperatorTok{+}\NormalTok{lnx3t[}\DecValTok{23}\OperatorTok{:}\DecValTok{38}\NormalTok{])}
+\KeywordTok{summary}\NormalTok{(Reg_}\FloatTok{4.2}\NormalTok{F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = lnY4t[23:38] ~ lnx1t[23:38] + lnx2t[23:38] + lnx3t[23:38])
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.064850 -0.029484 -0.008218  0.012563  0.107417 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)
+## (Intercept)   4.05308    5.68468   0.713    0.489
+## lnx1t[23:38] -0.29873    0.45431  -0.658    0.523
+## lnx2t[23:38] -0.94261    0.56801  -1.660    0.123
+## lnx3t[23:38] -0.09151    0.07782  -1.176    0.262
+## 
+## Residual standard error: 0.05183 on 12 degrees of freedom
+## Multiple R-squared:  0.8274, Adjusted R-squared:  0.7843 
+## F-statistic: 19.18 on 3 and 12 DF,  p-value: 7.149e-05
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{RSS4F=}\KeywordTok{deviance}\NormalTok{(Reg_}\FloatTok{4.2}\NormalTok{F))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.0322316
+\end{verbatim}
+
+\begin{center}\includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-8-1} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-8-2} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-8-3} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-8-4} \end{center}
+
+Se observa que (Intercept) 9.98698 2.62062 3.811 0.000594 \textbf{\emph{
+lnCARt 2.55992 0.22813 11.221 1.26e-12 }} lnPOPt -2.87808 0.45344 -6.347
+3.99e-07 *\textbf{ lnRGNPt -0.42927 0.14838 -2.893 0.006811 } lnPGNPt
+-0.17887 0.06336 -2.823 0.008115 \textbf{ lnPMGt -0.14111 0.04340 -3.252
+0.002704 } Ahora cuando tomamos toda la muestra y estimamos el modelo,
+ahora todos los coeficientes son significativos, por lo que se observa
+un mejor ajuste, tambien debido a que el R2 incremento y ahora es de
+0,9927 un 99,27\%de la varianza total explicada, muy buen auste,
+finalmente el p\_val de la prueba es \textless{} alpha por lo que la
+regresion es significativa
+
+No con la misma suerte observamos que el modelo 2 cuando se toman todos
+los datos para la estimacion los coeficientes estimados no se vuelven
+significativos, sin embargo tiene un buen R2 0,8274 (Intercept) 4.05308
+5.68468 0.713 0.489 lnx1t{[}23:38{]} -0.29873 0.45431 -0.658 0.523
+lnx2t{[}23:38{]} -0.94261 0.56801 -1.660 0.123 lnx3t{[}23:38{]} -0.09151
+0.07782 -1.176 0.262
+
+\hypertarget{cambio-estructural-con-variables-dummy}{%
+\subsection{CAMBIO ESTRUCTURAL CON VARIABLES
+DUMMY}\label{cambio-estructural-con-variables-dummy}}
+
+pruebe si la demanda de gasolina por automóvil sufrió un cambio
+permanente luego del embargo petrolero de 1973.
+
+Usamos el modelo 4.2 logaritmo de la demanda de gasolina por automobil,
+tener en cuenta que el modelo restringido es el modelo original con
+todos los datos
+
+\[Modelo\ no\ restringido\ con\ variables\ dummy \]
+\[Y_t=\beta_1+\delta_1D_t+\beta_2X_{2t}+\delta_2D_tX_{2t}+\beta_3X_{3t}+\delta_3D_3X_{3t}\]
+\[ln(\frac{QMG}{CAR})=\lambda_1+\delta_1D_t+\lambda_2\ln(\frac{RGNP}{POT})+\delta_2D_t\ln(\frac{RGNP}{POT})+\lambda_3\ln(\frac{CAR}{POT})+\delta_3D_t\ln(\frac{CAR}{POT})+\lambda_4\ln(\frac{PMG}{PGNP})+\delta_4D_t\ln(\frac{PMG}{PGNP})+\mu_t\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Acontinuacion procedemos a estimar el modelo 4.2 con variables Dummy}
+\KeywordTok{library}\NormalTok{(readxl) }
+\NormalTok{Datos_4PT<-}\KeywordTok{read_excel}\NormalTok{(}\StringTok{"Datos_E4.xls"}\NormalTok{) }\CommentTok{#read_excel lee el excel}
+\NormalTok{d1=}\KeywordTok{cbind}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{23}\NormalTok{))}
+\NormalTok{d2=}\KeywordTok{cbind}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{15}\NormalTok{))}
+\NormalTok{d=}\KeywordTok{rbind}\NormalTok{(d1,d2)}
+
+
+\NormalTok{eq1_mnr_d=}\KeywordTok{lm}\NormalTok{(lnY4t}\OperatorTok{~}\NormalTok{d}\OperatorTok{+}\NormalTok{X4}\OperatorTok{+}\NormalTok{d}\OperatorTok{*}\NormalTok{X4)}
+\KeywordTok{summary}\NormalTok{(eq1_mnr_d)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = lnY4t ~ d + X4 + d * X4)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.050788 -0.032354  0.007884  0.025500  0.085824 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)   
+## (Intercept) -0.30653    2.67525  -0.115  0.90954   
+## d           10.75911    5.68382   1.893  0.06805 . 
+## X4lnx1t     -0.13972    0.26828  -0.521  0.60634   
+## X4lnx2t      0.05446    0.31804   0.171  0.86519   
+## X4lnx3t      0.18527    0.31361   0.591  0.55910   
+## d:X4lnx1t    0.25268    0.46632   0.542  0.59192   
+## d:X4lnx2t   -1.74034    0.61306  -2.839  0.00805 **
+## d:X4lnx3t   -0.32025    0.31955  -1.002  0.32427   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.03912 on 30 degrees of freedom
+## Multiple R-squared:  0.9046, Adjusted R-squared:  0.8824 
+## F-statistic: 40.65 on 7 and 30 DF,  p-value: 1.341e-13
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"Suma de cuadrados de los errores del modelo no restringido con DUMMY"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Suma de cuadrados de los errores del modelo no restringido con DUMMY"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{RSS_NRD2=}\KeywordTok{deviance}\NormalTok{(eq1_mnr_d))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.04591107
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"prueba de cambio estructural con variables Dummy"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "prueba de cambio estructural con variables Dummy"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"La estadística F de la ecuación (22) calculada"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "La estadística F de la ecuación (22) calculada"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{FC_22=}\NormalTok{((RSS_R}\OperatorTok{-}\NormalTok{RSS_NRD2)}\OperatorTok{/}\DecValTok{5}\NormalTok{)}\OperatorTok{/}\NormalTok{(RSS_NRD2}\OperatorTok{/}\DecValTok{28}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -2.485875
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"verificación de coeficientes"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "verificación de coeficientes"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{PV_F_22=}\KeywordTok{pf}\NormalTok{(FC_}\DecValTok{22}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{28}\NormalTok{,}\DataTypeTok{lower.tail =}\NormalTok{ F))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"El valor p de la prueba nos indica que debemos rechazar H0 si p_val<<alpha; por tanto, concluimos que hay cambio estructural en la función a partir del año 1972."}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "El valor p de la prueba nos indica que debemos rechazar H0 si p_val<<alpha; por tanto, concluimos que hay cambio estructural en la función a partir del año 1972."
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bnrd=}\KeywordTok{cbind}\NormalTok{(}\KeywordTok{coef}\NormalTok{(eq1_mnr_d))}
+\NormalTok{bnrd}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                    [,1]
+## (Intercept) -0.30652784
+## d           10.75910981
+## X4lnx1t     -0.13971549
+## X4lnx2t      0.05446182
+## X4lnx3t      0.18527038
+## d:X4lnx1t    0.25267628
+## d:X4lnx2t   -1.74033781
+## d:X4lnx3t   -0.32024822
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b11nrd=bnrd[}\DecValTok{1}\NormalTok{]}
+\NormalTok{delta1=bnrd[}\DecValTok{2}\NormalTok{]}
+\NormalTok{b12nrd=b11nrd}\OperatorTok{+}\NormalTok{delta1}
+\NormalTok{b21nrd=bnrd[}\DecValTok{3}\NormalTok{]}
+\NormalTok{delta2=bnrd[}\DecValTok{4}\NormalTok{]}
+\NormalTok{b22nrd=b21nrd}\OperatorTok{+}\NormalTok{delta2}
+\end{Highlighting}
+\end{Shaded}
+
+Mediante el uso de las variables ficticias Dummy podemos concluir que
+hay o no un cambio estructural en el modelo a partir de cierto punto. El
+valor p de la prueba nos indica que debemos rechazar H0 si
+p\_val\textless\textless alpha; por tanto, concluimos que hay cambio
+estructural en la función a partir del año 1972. Esto explica el cambio
+en los estimadores encontrados en cada una de las muestras
+
+\hypertarget{estimacion-del-modelo-4.1-por-variables-dummy}{%
+\subsection{Estimacion del modelo 4.1 por variables
+Dummy}\label{estimacion-del-modelo-4.1-por-variables-dummy}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# i) Estimacion del modelo 4.1 por variables Dummy}
+\CommentTok{# Construya una regresión con variable dummy para probar si la elasticidad precio cambió luego de 1973.}
+
+
+\NormalTok{Reg_}\FloatTok{4.1}\NormalTok{D<-}\KeywordTok{lm}\NormalTok{(lnQMGt}\OperatorTok{~}\NormalTok{d}\OperatorTok{+}\NormalTok{X4}\FloatTok{.1}\OperatorTok{+}\NormalTok{d}\OperatorTok{*}\NormalTok{X4}\FloatTok{.1}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(Reg_}\FloatTok{4.1}\NormalTok{D)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = lnQMGt ~ d + X4.1 + d * X4.1)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.041097 -0.006074  0.000566  0.008870  0.025579 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)     1.6801     2.4793   0.678 0.503967    
+## d              60.4078    20.9419   2.885 0.007775 ** 
+## X4.1lnCARt      0.3635     0.4572   0.795 0.433738    
+## X4.1lnPOPt      1.0539     0.8030   1.312 0.200846    
+## X4.1lnRGNPt    -0.3114     0.1442  -2.159 0.040252 *  
+## X4.1lnPGNPt     0.1250     0.1403   0.891 0.381128    
+## X4.1lnPMGt      1.0481     0.2381   4.403 0.000163 ***
+## d:X4.1lnCARt    1.3176     0.6643   1.984 0.057965 .  
+## d:X4.1lnPOPt   -7.4647     1.7777  -4.199 0.000278 ***
+## d:X4.1lnRGNPt   0.4959     0.2560   1.938 0.063602 .  
+## d:X4.1lnPGNPt   0.3918     0.3523   1.112 0.276264    
+## d:X4.1lnPMGt   -1.2737     0.2443  -5.214 1.91e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.01662 on 26 degrees of freedom
+## Multiple R-squared:  0.9979, Adjusted R-squared:  0.9971 
+## F-statistic:  1147 on 11 and 26 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"RSS No Restringido Dummy Lm"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "RSS No Restringido Dummy Lm"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{RSS_NRDlm=}\KeywordTok{deviance}\NormalTok{(Reg_}\FloatTok{4.1}\NormalTok{D))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.007177586
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X1=}\KeywordTok{cbind}\NormalTok{(}\DecValTok{1}\NormalTok{,X4}\FloatTok{.1}\NormalTok{[}\DecValTok{1}\OperatorTok{:}\DecValTok{23}\NormalTok{,])}
+\NormalTok{X2=}\KeywordTok{cbind}\NormalTok{(}\DecValTok{1}\NormalTok{,X4}\FloatTok{.1}\NormalTok{[}\DecValTok{24}\OperatorTok{:}\DecValTok{38}\NormalTok{,])}
+\NormalTok{O23=}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{nrow=}\DecValTok{23}\NormalTok{,}\DataTypeTok{ncol=}\DecValTok{6}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\NormalTok{O15=}\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{nrow=}\DecValTok{15}\NormalTok{,}\DataTypeTok{ncol=}\DecValTok{6}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\NormalTok{A1=}\KeywordTok{rbind}\NormalTok{(X1,O15)}
+\NormalTok{A2=}\KeywordTok{rbind}\NormalTok{(O23,X2)}
+\StringTok{"MATRIZ XNR"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "MATRIZ XNR"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{XNR=}\KeywordTok{cbind}\NormalTok{(A1,A2)}
+
+\StringTok{"LA MATRIZ XNRtXNR"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "LA MATRIZ XNRtXNR"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{XNRtXNR=}\KeywordTok{t}\NormalTok{(XNR)}\OperatorTok{%*%}\NormalTok{XNR}
+\StringTok{"LA MATRIZ XNRtXNR inversa"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "LA MATRIZ XNRtXNR inversa"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{XNRtXNR_inv=}\KeywordTok{solve}\NormalTok{(XNRtXNR)}
+\StringTok{"EL VECTOR XNRty"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "EL VECTOR XNRty"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{XNRty=}\KeywordTok{t}\NormalTok{(XNR)}\OperatorTok{%*%}\NormalTok{lnQMGt}
+\StringTok{"EL ESTIMADOR OLS DEL MODELO NO RESTRINGIDO ES"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "EL ESTIMADOR OLS DEL MODELO NO RESTRINGIDO ES"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{bnr=}\NormalTok{XNRtXNR_inv}\OperatorTok{%*%}\NormalTok{XNRty)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               [,1]
+##          1.6801434
+## lnCARt   0.3635327
+## lnPOPt   1.0539307
+## lnRGNPt -0.3113880
+## lnPGNPt  0.1249568
+## lnPMGt   1.0481449
+##         62.0879904
+## lnCARt   1.6811160
+## lnPOPt  -6.4108036
+## lnRGNPt  0.1845502
+## lnPGNPt  0.5168058
+## lnPMGt  -0.2255728
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{etnr_D=lnQMGt}\OperatorTok{-}\NormalTok{XNR}\OperatorTok{%*%}\NormalTok{bnr}
+\StringTok{"SUMA DE CUADRADOS DE ERRROES NR modelo Dummy Matriz"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "SUMA DE CUADRADOS DE ERRROES NR modelo Dummy Matriz"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{RSS_NRDM=}\KeywordTok{t}\NormalTok{(etnr_D)}\OperatorTok{%*%}\NormalTok{etnr_D)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             [,1]
+## [1,] 0.007177586
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"SUMA DE CUADRADOS EXPLICADA NR modelo Dummy Matriz "}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "SUMA DE CUADRADOS EXPLICADA NR modelo Dummy Matriz "
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{ESS_NRD=}\NormalTok{(}\KeywordTok{t}\NormalTok{(bnr)}\OperatorTok{%*%}\NormalTok{XNRtXNR}\OperatorTok{%*%}\NormalTok{bnr)[}\DecValTok{1}\OperatorTok{:}\DecValTok{1}\NormalTok{]}\OperatorTok{-}\DecValTok{38}\OperatorTok{*}\KeywordTok{mean}\NormalTok{(lnQMGt)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.484047
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"LA SUMA TOTAL CUADRADOS NR modelo Dummy Matriz"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "LA SUMA TOTAL CUADRADOS NR modelo Dummy Matriz"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{TSS_NRD=}\NormalTok{(}\KeywordTok{t}\NormalTok{(lnQMGt)}\OperatorTok{%*%}\NormalTok{lnQMGt)[}\DecValTok{1}\OperatorTok{:}\DecValTok{1}\NormalTok{]}\OperatorTok{-}\DecValTok{38}\OperatorTok{*}\KeywordTok{mean}\NormalTok{(lnQMGt)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.491195
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"PRUEBA DE SUMAS DE CUADRADOS EN EL MODELO NR"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "PRUEBA DE SUMAS DE CUADRADOS EN EL MODELO NR"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{TSS_NRD_PRUEBA=}\NormalTok{ESS_NRD}\OperatorTok{+}\NormalTok{RSS_NRDM)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 3.491225
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"ESTADÍSTICA F DE LA ECUACION (20)"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "ESTADÍSTICA F DE LA ECUACION (20)"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"EL VALOR CALCULADO DE LA ESTADÍSTICA ES"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "EL VALOR CALCULADO DE LA ESTADÍSTICA ES"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{FC_20=}\NormalTok{(((RSS_R}\OperatorTok{-}\NormalTok{RSS_NRDM)}\OperatorTok{/}\DecValTok{5}\NormalTok{)}\OperatorTok{/}\NormalTok{(RSS_NRDM}\OperatorTok{/}\DecValTok{28}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 14.31935
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"EL P VALOR ES"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "EL P VALOR ES"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{PV_F_20=}\KeywordTok{pf}\NormalTok{(FC_}\DecValTok{20}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{28}\NormalTok{,}\DataTypeTok{lower.tail =}\NormalTok{ F))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              [,1]
+## [1,] 5.466818e-07
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"El valor p de la prueba nos indica que debemos rechazar H0 si p_val<<alpha; por tanto, concluimos que hay cambio estructural en la función a partir del año 1972."}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "El valor p de la prueba nos indica que debemos rechazar H0 si p_val<<alpha; por tanto, concluimos que hay cambio estructural en la función a partir del año 1972."
+\end{verbatim}
+
+El valor p de la prueba nos indica que debemos rechazar H0 si
+p\_val\textless\textless alpha; por tanto, concluimos que hay cambio
+estructural en la función a partir del año 1972 en el modelo 2
+Verificamos esto haciendo la comparacion de los estimadores no
+restringidos del modelo Dummy con los estimadores restringidos,
+observamos que las pendientes y el intercepto son los mismos, pero en el
+modelo NR se le suman valores delta diferentes de cero, por lo que la
+hipotesis del cambio estructural se acepta
+
+\hypertarget{quinto-punto}{%
+\section{Quinto Punto}\label{quinto-punto}}
+
+En un paper de 1963, Marc Nerlove analizó una función de costos para 145
+compañías eléctricas estadounidenses. El archivo ``Datos\_E3\_Nerlove''
+contiene la información para
+
+\begin{itemize}
+\tightlist
+\item
+  TC: costo total en millones de dólares
+\item
+  Q: producción en miles de millones de kilovatios hora
+\item
+  PL: precio del trabajo
+\item
+  PF: precio de combustibles
+\item
+  PK: precio del capital
+\end{itemize}
+
+\hypertarget{lectura-de-datos-5p}{%
+\subsection{Lectura de Datos 5P}\label{lectura-de-datos-5p}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rm}\NormalTok{(}\DataTypeTok{list=}\KeywordTok{ls}\NormalTok{()) }\CommentTok{# rm remueve objetos, ls = lista}
+\KeywordTok{setwd}\NormalTok{(}\StringTok{'C://Users/f-pis/Desktop/Semestres/Archivos R'}\NormalTok{) }\CommentTok{#Establece el workDirectory}
+\CommentTok{#install.packages("readxl") # instala el paquete para leer Excel }
+\KeywordTok{library}\NormalTok{(readxl) }\CommentTok{#..library() Carga el paquete }
+\NormalTok{Datos_5P<-}\KeywordTok{read_excel}\NormalTok{(}\StringTok{"Datos_E5_Nerlove.xls"}\NormalTok{) }\CommentTok{#read_excel lee el excel}
+\NormalTok{Datos_5P=}\KeywordTok{data.frame}\NormalTok{(Datos_5P)}
+
+\KeywordTok{kable}\NormalTok{(}\KeywordTok{head}\NormalTok{(Datos_5P))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}rrrrr@{}}
+\toprule
+TC & Q & PL & PF & PK\tabularnewline
+\midrule
+\endhead
+0.082 & 2 & 2.09 & 17.9 & 183\tabularnewline
+0.661 & 3 & 2.05 & 35.1 & 174\tabularnewline
+0.990 & 4 & 2.05 & 35.1 & 171\tabularnewline
+0.315 & 4 & 1.83 & 32.2 & 166\tabularnewline
+0.197 & 5 & 2.12 & 28.6 & 233\tabularnewline
+0.098 & 9 & 2.12 & 28.6 & 195\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{estimacion-modelo-5}{%
+\subsection{Estimacion Modelo 5}\label{estimacion-modelo-5}}
+
+Estime un modelo en el que se tenga como variable dependiente los costos
+y como variables explicativas una constante y el resto de variables
+listadas. Con esta estimación obtenga las elasticidades de los costos a
+las distintas variables explicativas. Interprete los principales
+resultados.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Y5=Datos_5P[,}\DecValTok{1}\NormalTok{] }\CommentTok{#  en este caso Y5 es el vector de costos }
+
+\NormalTok{logx2=}\KeywordTok{log}\NormalTok{(Datos_5P[,}\DecValTok{2}\NormalTok{])}
+\NormalTok{logx3=}\KeywordTok{log}\NormalTok{(Datos_5P[,}\DecValTok{3}\NormalTok{])}
+\NormalTok{logx4=}\KeywordTok{log}\NormalTok{(Datos_5P[,}\DecValTok{4}\NormalTok{])}
+\NormalTok{logx5=}\KeywordTok{log}\NormalTok{(Datos_5P[,}\DecValTok{5}\NormalTok{])}
+\NormalTok{lnY5=}\KeywordTok{log}\NormalTok{(Y5)}
+
+
+\NormalTok{Reg_}\DecValTok{5}\NormalTok{<-}\KeywordTok{lm}\NormalTok{(lnY5}\OperatorTok{~}\NormalTok{logx2}\OperatorTok{+}\NormalTok{logx3}\OperatorTok{+}\NormalTok{logx4}\OperatorTok{+}\NormalTok{logx5)}
+\KeywordTok{summary}\NormalTok{(Reg_}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = lnY5 ~ logx2 + logx3 + logx4 + logx5)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.97784 -0.23817 -0.01372  0.16031  1.81751 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -3.52650    1.77437  -1.987   0.0488 *  
+## logx2        0.72039    0.01747  41.244  < 2e-16 ***
+## logx3        0.43634    0.29105   1.499   0.1361    
+## logx4        0.42652    0.10037   4.249 3.89e-05 ***
+## logx5       -0.21989    0.33943  -0.648   0.5182    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.3924 on 140 degrees of freedom
+## Multiple R-squared:  0.926,  Adjusted R-squared:  0.9238 
+## F-statistic: 437.7 on 4 and 140 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{RSS_NR5=}\KeywordTok{deviance}\NormalTok{(Reg_}\DecValTok{5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 21.55201
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(Reg_}\DecValTok{5}\NormalTok{)}
+
+\KeywordTok{library}\NormalTok{(normtest)}
+\NormalTok{e5=}\KeywordTok{resid}\NormalTok{(Reg_}\DecValTok{5}\NormalTok{)}
+\KeywordTok{jb.norm.test}\NormalTok{(e5)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Jarque-Bera test for normality
+## 
+## data:  e5
+## JB = 175.7, p-value < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Reg_5a<-}\KeywordTok{lm}\NormalTok{(lnY5}\OperatorTok{~}\NormalTok{logx2}\OperatorTok{+}\NormalTok{logx4)}
+\KeywordTok{summary}\NormalTok{(Reg_5a)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = lnY5 ~ logx2 + logx4)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.95874 -0.21080 -0.00947  0.16515  1.84465 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -4.53676    0.33825 -13.412  < 2e-16 ***
+## logx2        0.72415    0.01742  41.562  < 2e-16 ***
+## logx4        0.47163    0.09286   5.079 1.17e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.3942 on 142 degrees of freedom
+## Multiple R-squared:  0.9242, Adjusted R-squared:  0.9231 
+## F-statistic: 865.6 on 2 and 142 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(Reg_5a)}
+
+\KeywordTok{library}\NormalTok{(normtest)}
+\NormalTok{e5a=}\KeywordTok{resid}\NormalTok{(Reg_5a)}
+\KeywordTok{jb.norm.test}\NormalTok{(e5a)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Jarque-Bera test for normality
+## 
+## data:  e5a
+## JB = 182.63, p-value < 2.2e-16
+\end{verbatim}
+
+\begin{center}\includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-12-1} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-12-2} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-12-3} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-12-4} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-12-5} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-12-6} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-12-7} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-12-8} \end{center}
+
+Observamos en las graficas que los residuales se distribuyen al rededor
+de cero en la grafica residuals-fitted, se observan algunos valores
+outliers, en la grafica de cuantiles observamos que los residuales se
+asemejan a los cuantiles teoricos de la normal, sin embargo en la
+grafica de los residuales estandarizados se observa cierto
+comportamiento no lineal, al parecer cuadratico Obseravamos que al
+eliminar los estimadores no significativos y hacer de nuevo la regresion
+el modelo no aumenta su R2, aunque ya es alto 98\% no varia y por lo
+tanto procedemos a hacer el test de jarque bera el cual arroja un
+p-valor\textless alpha por lo que se rechaza ho y se concluye que no hay
+normalidad en los errores y por tanto en la dist prob
+
+(Intercept) -4.53676 0.33825 -13.412 \textless{} 2e-16 \textbf{\emph{
+logx2 0.72415 0.01742 41.562 \textless{} 2e-16 }} logx4 0.47163 0.09286
+5.079 1.17e-06 ***
+
+\#\#Modelo 5 Restringido Restriccion de Homogeneidad
+beta\_3+beta\_4+beta\_5=1
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"ESTIMACIÓN DEL MODELO RESTINGIDO CON LA FUNCIÓN lm()"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "ESTIMACIÓN DEL MODELO RESTINGIDO CON LA FUNCIÓN lm()"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#if (!require("restriktor")) install.packages("restriktor")}
+\CommentTok{# Se usa el paquete "restriktor" para imponer la restricción beta3=0 sobre la ecuación estimada del modelo no restringido}
+
+
+\ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\KeywordTok{require}\NormalTok{(}\StringTok{"restriktor"}\NormalTok{)) }
+\NormalTok{\{}
+  \KeywordTok{install.packages}\NormalTok{(}\StringTok{'restriktor'}\NormalTok{);}
+  \KeywordTok{library}\NormalTok{(restriktor);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: restriktor
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'restriktor' was built under R version 3.6.3
+\end{verbatim}
+
+\begin{verbatim}
+## This is restriktor 0.2-800
+\end{verbatim}
+
+\begin{verbatim}
+## restriktor is BETA software! Please report any bugs.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(restriktor)}
+\CommentTok{#options(digits=3) # Para este ejemplo solo se utilizan 3 digitos decimales}
+\NormalTok{Restricciones <-}\StringTok{ '}
+\StringTok{logx3+logx4+logx5 ==1;'}
+\NormalTok{Reg_5R =}\StringTok{ }\KeywordTok{restriktor}\NormalTok{(Reg_}\DecValTok{5}\NormalTok{, }\DataTypeTok{constraints =}\NormalTok{ Restricciones)}
+\KeywordTok{summary}\NormalTok{(Reg_5R)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## conLM.lm(object = object, constraints = constraints)
+## 
+## Restriktor: restricted linear model:
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -1.012004 -0.217588 -0.007524  0.160480  1.819218 
+## 
+## Coefficients:
+##               Estimate Std. Error t value  Pr(>|t|)    
+## (Intercept) -4.6907891  0.8848713 -5.3011 4.379e-07 ***
+## logx2        0.7206875  0.0174357 41.3340 < 2.2e-16 ***
+## logx3        0.5929096  0.2045722  2.8983  0.004357 ** 
+## logx4        0.4144715  0.0989512  4.1886 4.940e-05 ***
+## logx5       -0.0073811  0.1907356 -0.0387  0.969186    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.39176 on 140 degrees of freedom
+## Standard errors: standard 
+## Multiple R-squared reduced from 0.926 to 0.926 
+## 
+## Generalized order-restricted information criterion: 
+##  Loglik Penalty   goric 
+## -67.838   5.000 145.677
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"Estos son los estimadores OLS del modelo 5 restringido"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Estos son los estimadores OLS del modelo 5 restringido"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{b5R=}\KeywordTok{coef}\NormalTok{(Reg_5R))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  (Intercept)        logx2        logx3        logx4        logx5 
+## -4.690789123  0.720687524  0.592909608  0.414471455 -0.007381064
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sR5_mr=}\KeywordTok{summary}\NormalTok{(Reg_5R)}
+\StringTok{"LA VARIANZA ESTIMADA DEL MODELO RESTRINGIDO ES"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "LA VARIANZA ESTIMADA DEL MODELO RESTRINGIDO ES"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{S2_mr=sR5_mr}\OperatorTok{$}\NormalTok{s2}
+\NormalTok{S2_mr}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1534774
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{" EL ERROR ESTÁNDAR DEL MODELO RESTRINGIDO ES"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] " EL ERROR ESTÁNDAR DEL MODELO RESTRINGIDO ES"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s_mr=(sR5_mr}\OperatorTok{$}\NormalTok{s2)}\OperatorTok{^}\FloatTok{0.5}
+\NormalTok{s_mr}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.391762
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"LA SUMA DE CUADRADOS DE LOS ERROES DEL MODELO RESTRINGIDO ES: RSS_R=S2_mr*(n-(k-1))"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "LA SUMA DE CUADRADOS DE LOS ERROES DEL MODELO RESTRINGIDO ES: RSS_R=S2_mr*(n-(k-1))"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RSS_R5=}\DecValTok{141}\OperatorTok{*}\NormalTok{S2_mr}
+\NormalTok{RSS_R5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 21.64032
+\end{verbatim}
+
+(Intercept) -4.6907891 0.8848713 -5.3011 4.379e-07 \textbf{\emph{ logx2
+0.7206875 0.0174357 41.3340 \textless{} 2.2e-16 }} logx3 0.5929096
+0.2045722 2.8983 0.004357 ** logx4 0.4144715 0.0989512 4.1886 4.940e-05
+***
+
+Se observa que en el modelo con la restriccion de homogeneidad el modelo
+se ajusta mas y todos sus estimadores a excepcion de logx5 son
+significativos y tiene un r2 del 92\% de explicacion
+
+\#\#Prueba de wald
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"ESTADÍSTICA F DE WALD DE LA ECUACIÓN F (20)"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "ESTADÍSTICA F DE WALD DE LA ECUACIÓN F (20)"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"El valor calculado de esta estadística es:"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "El valor calculado de esta estadística es:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"FC_20"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "FC_20"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{FC_20=}\NormalTok{((RSS_R5}\OperatorTok{-}\NormalTok{RSS_NR5)}\OperatorTok{/}\DecValTok{5}\NormalTok{)}\OperatorTok{/}\NormalTok{(RSS_NR5}\OperatorTok{/}\DecValTok{145-2}\OperatorTok{*}\DecValTok{5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.001792867
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"EL VALOR P PARA LA PRUEBA ES"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "EL VALOR P PARA LA PRUEBA ES"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{pv_wald=}\KeywordTok{pchisq}\NormalTok{(FC_}\DecValTok{20}\NormalTok{,}\DataTypeTok{df=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lower.tail =}\NormalTok{ F))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"El Test de Wald es un contraste de hipótesis donde se trata de ver la coherencia de afirmar un valor concreto de un parámetro de un modelo probabilístico una vez tenemos ya un modelo previamente seleccionado y ajustado."}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "El Test de Wald es un contraste de hipótesis donde se trata de ver la coherencia de afirmar un valor concreto de un parámetro de un modelo probabilístico una vez tenemos ya un modelo previamente seleccionado y ajustado."
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"El p-valor de la F es"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "El p-valor de la F es"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{PV_F_20=}\KeywordTok{pf}\NormalTok{(FC_}\DecValTok{20}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{135}\NormalTok{,}\DataTypeTok{lower.tail =}\NormalTok{ F))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Es este caso el anterior es es mismo estadistico de la prueba de Chow}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{secto-punto}{%
+\subsection{Secto Punto}\label{secto-punto}}
+
+El siguiente modelo puede ser utilizado para estudiar si los gastos de
+una campaña afectan los resultados de la elección:
+
+Vote A = porcentaje de votos del candidato A expendA= gastos de campaña
+candidato A expendB= gastos de campaña candidato B prtystrA= porcentaje
+de votos obtenido por el pardito de A en la elección más reciente
+
+\#Estimacion del Modelo
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rm}\NormalTok{(}\DataTypeTok{list=}\KeywordTok{ls}\NormalTok{()) }\CommentTok{# rm remueve objetos, ls = lista}
+\KeywordTok{setwd}\NormalTok{(}\StringTok{'C://Users/f-pis/Desktop/Semestres/Archivos R'}\NormalTok{) }\CommentTok{#Establece el workDirectory}
+\CommentTok{#install.packages("readxl") # instala el paquete para leer Excel }
+\KeywordTok{library}\NormalTok{(readxl) }\CommentTok{#..library() Carga el paquete }
+\NormalTok{Datos_6P<-}\KeywordTok{read_excel}\NormalTok{(}\StringTok{"Datos_E6_Votacion.xls"}\NormalTok{) }\CommentTok{#read_excel lee el excel}
+\NormalTok{Datos_6P=}\KeywordTok{data.frame}\NormalTok{(Datos_6P)}
+\KeywordTok{kable}\NormalTok{(}\KeywordTok{head}\NormalTok{(Datos_6P))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}rrrr@{}}
+\toprule
+voteA & expendA & expendB & prtystrA\tabularnewline
+\midrule
+\endhead
+68 & 328.30 & 8.74 & 41\tabularnewline
+62 & 626.38 & 402.48 & 60\tabularnewline
+73 & 99.61 & 3.07 & 55\tabularnewline
+69 & 319.69 & 26.28 & 64\tabularnewline
+75 & 159.22 & 60.05 & 66\tabularnewline
+69 & 570.16 & 21.39 & 46\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{voteA=Datos_6P[,}\DecValTok{1}\NormalTok{]}
+\NormalTok{logExpendA=}\KeywordTok{log}\NormalTok{(Datos_6P[,}\DecValTok{2}\NormalTok{])}
+\NormalTok{logExpendB=}\KeywordTok{log}\NormalTok{(Datos_6P[,}\DecValTok{3}\NormalTok{])}
+\NormalTok{prtystrA=Datos_6P[,}\DecValTok{4}\NormalTok{]}
+
+\NormalTok{Reg_}\DecValTok{6}\NormalTok{=}\KeywordTok{lm}\NormalTok{(voteA}\OperatorTok{~}\NormalTok{logExpendA}\OperatorTok{+}\NormalTok{logExpendB}\OperatorTok{+}\NormalTok{prtystrA)}
+\KeywordTok{summary}\NormalTok{(Reg_}\DecValTok{6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = voteA ~ logExpendA + logExpendB + prtystrA)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -20.3990  -5.4184  -0.8737   4.9563  26.0575 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 45.08788    3.92680  11.482   <2e-16 ***
+## logExpendA   6.08136    0.38211  15.915   <2e-16 ***
+## logExpendB  -6.61563    0.37889 -17.461   <2e-16 ***
+## prtystrA     0.15201    0.06203   2.451   0.0153 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 7.713 on 169 degrees of freedom
+## Multiple R-squared:  0.7925, Adjusted R-squared:  0.7888 
+## F-statistic: 215.2 on 3 and 169 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RSS_NR6=}\KeywordTok{deviance}\NormalTok{(Reg_}\DecValTok{6}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(Reg_}\DecValTok{6}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{lm.influence}\NormalTok{(Reg_}\DecValTok{6}\NormalTok{)}\OperatorTok{$}\NormalTok{hat)}
+
+\ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\KeywordTok{require}\NormalTok{(}\StringTok{"olsrr"}\NormalTok{)) }
+\NormalTok{\{}
+  \KeywordTok{install.packages}\NormalTok{(}\StringTok{'olsrr'}\NormalTok{);}
+  \KeywordTok{library}\NormalTok{(rolsrr);}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: olsrr
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'olsrr' was built under R version 3.6.3
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'olsrr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:datasets':
+## 
+##     rivers
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(olsrr)}
+\KeywordTok{require}\NormalTok{(olsrr)}
+\KeywordTok{ols_plot_dffits}\NormalTok{(Reg_}\DecValTok{6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-15-1} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-15-2} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-15-3} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-15-4} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-15-5} \includegraphics{TallerEconometria_files/figure-latex/unnamed-chunk-15-6} \end{center}
+
+\hypertarget{prueba-de-hipotesis}{%
+\subsection{Prueba de Hipotesis}\label{prueba-de-hipotesis}}
+
+Pruebe la hipótesis según la cual un aumento de 1\% en los gastos de A
+se compensa por un aumento de 1\% en los gastos de B. Utilice las
+pruebas lr,Wald y LM
+
+Ho: b1-b2=0 Ha: b1-b2!=0
+
+\hypertarget{estimacion-del-modelo-6-restringido}{%
+\subsubsection{Estimacion del modelo 6
+restringido}\label{estimacion-del-modelo-6-restringido}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"ESTIMACIÓN DEL MODELO 6 RESTINGIDO CON LA FUNCIÓN lm()"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "ESTIMACIÓN DEL MODELO 6 RESTINGIDO CON LA FUNCIÓN lm()"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\KeywordTok{require}\NormalTok{(}\StringTok{"restriktor"}\NormalTok{)) }
+\NormalTok{\{}
+  \KeywordTok{install.packages}\NormalTok{(}\StringTok{'restriktor'}\NormalTok{);}
+  \KeywordTok{library}\NormalTok{(restriktor);}
+\NormalTok{\}}
+\KeywordTok{library}\NormalTok{(restriktor)}
+
+\NormalTok{Restricciones <-}\StringTok{ '}
+\StringTok{logExpendA-logExpendB ==0;'}
+\NormalTok{Reg_6R =}\StringTok{ }\KeywordTok{restriktor}\NormalTok{(Reg_}\DecValTok{6}\NormalTok{, }\DataTypeTok{constraints =}\NormalTok{ Restricciones)}
+\KeywordTok{summary}\NormalTok{(Reg_6R)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## conLM.lm(object = object, constraints = constraints)
+## 
+## Restriktor: restricted linear model:
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -33.5332 -14.1190   0.7192  14.0651  34.6726 
+## 
+## Coefficients:
+##             Estimate Std. Error t value  Pr(>|t|)    
+## (Intercept) 24.44182    7.85032  3.1135  0.002172 ** 
+## logExpendA  -0.31997    0.54688 -0.5851  0.559278    
+## logExpendB  -0.31997    0.54688 -0.5851  0.559278    
+## prtystrA     0.58788    0.12138  4.8434 2.868e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 15.826 on 169 degrees of freedom
+## Standard errors: standard 
+## Multiple R-squared reduced from 0.793 to 0.121 
+## 
+## Generalized order-restricted information criterion: 
+##  Loglik Penalty   goric 
+## -721.73    4.00 1451.45
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"Estos son los estimadores OLS del modelo 5 restringido"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Estos son los estimadores OLS del modelo 5 restringido"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{b6R=}\KeywordTok{coef}\NormalTok{(Reg_6R))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept)  logExpendA  logExpendB    prtystrA 
+##  24.4418217  -0.3199659  -0.3199659   0.5878761
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sR6_mr=}\KeywordTok{summary}\NormalTok{(Reg_6R)}
+\StringTok{"LA VARIANZA ESTIMADA DEL MODELO RESTRINGIDO ES"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "LA VARIANZA ESTIMADA DEL MODELO RESTRINGIDO ES"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{S2_mr6=sR6_mr}\OperatorTok{$}\NormalTok{s2}
+\NormalTok{S2_mr6}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 250.4518
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{" EL ERROR ESTÁNDAR DEL MODELO RESTRINGIDO ES"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] " EL ERROR ESTÁNDAR DEL MODELO RESTRINGIDO ES"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s_mr6=(sR6_mr}\OperatorTok{$}\NormalTok{s2)}\OperatorTok{^}\FloatTok{0.5}
+\NormalTok{s_mr6}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 15.82567
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"LA SUMA DE CUADRADOS DE LOS ERROES DEL MODELO RESTRINGIDO ES: RSS_R=S2_mr*(n-(k-1))"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "LA SUMA DE CUADRADOS DE LOS ERROES DEL MODELO RESTRINGIDO ES: RSS_R=S2_mr*(n-(k-1))"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RSS_R6=}\DecValTok{170}\OperatorTok{*}\NormalTok{S2_mr6}
+\NormalTok{RSS_R6}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 42576.8
+\end{verbatim}
+
+\hypertarget{prueba-lr-razon-de-verosimilitud}{%
+\subsection{Prueba LR Razon de
+Verosimilitud}\label{prueba-lr-razon-de-verosimilitud}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#PRUEBA LR: RAZÓN DE VEROSIMILITUD}
+\StringTok{"PRUEBA LR: RAZÓN DE VEROSIMILITUD"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "PRUEBA LR: RAZÓN DE VEROSIMILITUD"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"LA SUMA DE LOS CUADRADOS DE LOS ERRORES DEL MODELO NO RESTRINGIDO ES"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "LA SUMA DE LOS CUADRADOS DE LOS ERRORES DEL MODELO NO RESTRINGIDO ES"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"RSS_NR6"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "RSS_NR6"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RSS_NR6}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10054.83
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{npi=pi}
+\NormalTok{n=}\DecValTok{173}
+\NormalTok{k=}\DecValTok{3}
+\StringTok{"El numero e"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "El numero e"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{e=}\KeywordTok{exp}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+
+\NormalTok{(}\DataTypeTok{LMR6=}\NormalTok{((}\DecValTok{2}\OperatorTok{*}\NormalTok{npi}\OperatorTok{*}\NormalTok{e}\OperatorTok{/}\NormalTok{n)}\OperatorTok{^}\NormalTok{(}\OperatorTok{-}\NormalTok{n}\OperatorTok{/}\DecValTok{2}\NormalTok{))}\OperatorTok{*}\NormalTok{((RSS_R6)}\OperatorTok{^}\NormalTok{(}\OperatorTok{-}\NormalTok{n}\OperatorTok{/}\DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"El logaritmo de la verosimilitud restringida es"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "El logaritmo de la verosimilitud restringida es"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{lmr6=}\KeywordTok{log}\NormalTok{(LMR6))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -Inf
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"LA SUMA DE LOS CUADRADOS DE LOS ERRORES DEL MODELO RESTRINGIDO ES"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "LA SUMA DE LOS CUADRADOS DE LOS ERRORES DEL MODELO RESTRINGIDO ES"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"RSS_R6"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "RSS_R6"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RSS_R6}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 42576.8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"LA VEROSIMILITUD DEL MODELO NO RESTRINGIDO ES:"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "LA VEROSIMILITUD DEL MODELO NO RESTRINGIDO ES:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{LMNR6=}\NormalTok{((}\DecValTok{2}\OperatorTok{*}\NormalTok{npi}\OperatorTok{*}\NormalTok{e}\OperatorTok{/}\NormalTok{n)}\OperatorTok{^}\NormalTok{(}\OperatorTok{-}\NormalTok{n}\OperatorTok{/}\DecValTok{2}\NormalTok{))}\OperatorTok{*}\NormalTok{((RSS_NR6)}\OperatorTok{^}\NormalTok{(}\OperatorTok{-}\NormalTok{n}\OperatorTok{/}\DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"El logaritmo de la verosimilitud no restringido es"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "El logaritmo de la verosimilitud no restringido es"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{lmnr6=}\KeywordTok{log}\NormalTok{(LMNR6))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -Inf
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"LA ESTADÍSTICA CALCULADA DE LA ECUACIÓN 17 ES"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "LA ESTADÍSTICA CALCULADA DE LA ECUACIÓN 17 ES"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"LR_C_17"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "LR_C_17"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{LRC_17=}\OperatorTok{-}\DecValTok{2}\OperatorTok{*}\NormalTok{(lmnr6}\OperatorTok{-}\NormalTok{lmr6)) }\CommentTok{##LR=2*ln(lambda)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NaN
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"Valores grandes de LR nos indican que lambda tiende a ceroy por esta razón debemos rechazar Ho y decimos que logExpendA-logExpendB !==0 "}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Valores grandes de LR nos indican que lambda tiende a ceroy por esta razón debemos rechazar Ho y decimos que logExpendA-logExpendB !==0 "
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"LA ESTADÍSTICA CALCULADA DE LA ECUACIÓN 18 ES"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "LA ESTADÍSTICA CALCULADA DE LA ECUACIÓN 18 ES"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"LR_C_18"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "LR_C_18"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{LRC_18=}\DecValTok{173}\OperatorTok{*}\KeywordTok{log}\NormalTok{(RSS_R6}\OperatorTok{/}\NormalTok{RSS_NR6))  }\CommentTok{#LR=n*(ln(RSS_R)-ln(RSS_NR))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 249.6834
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"EL VALOR P PARA LA PRUEBA ES"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "EL VALOR P PARA LA PRUEBA ES"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{pv_valor=}\KeywordTok{pchisq}\NormalTok{(LRC_}\DecValTok{18}\NormalTok{,}\DataTypeTok{df =} \DecValTok{1}\NormalTok{, }\DataTypeTok{lower.tail =}\NormalTok{ F))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.044172e-56
+\end{verbatim}
+
+Valores grandes de LR nos indican que lambda tiende a ceroy por esta
+razón debemos rechazar Ho y decimos que logExpendA-logExpendB !==0
+
+\#\#Prueba de wald
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"ESTADÍSTICA F DE WALD DE LA ECUACIÓN F (20)"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "ESTADÍSTICA F DE WALD DE LA ECUACIÓN F (20)"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"El valor calculado de esta estadística es:"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "El valor calculado de esta estadística es:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"FC_20"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "FC_20"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{FC_20W=}\NormalTok{n}\OperatorTok{*}\NormalTok{(RSS_R6}\OperatorTok{-}\NormalTok{RSS_NR6)}\OperatorTok{/}\NormalTok{RSS_NR6)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 559.562
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"EL VALOR P PARA LA PRUEBA ES"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "EL VALOR P PARA LA PRUEBA ES"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{pv_wald=}\KeywordTok{pchisq}\NormalTok{(FC_20W,}\DataTypeTok{df=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lower.tail =}\NormalTok{ F))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.046861e-123
+\end{verbatim}
+
+\hypertarget{prueba-lm}{%
+\subsection{Prueba LM}\label{prueba-lm}}
+
+Multiplicadores de Lagrange
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#options(digits=4)}
+\StringTok{"REGRESIÓN AUXILIAR PARA LA PRUEBA LM"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "REGRESIÓN AUXILIAR PARA LA PRUEBA LM"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"Errores de estimación etr del modelo restingido vs X2t, X2t"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Errores de estimación etr del modelo restingido vs X2t, X2t"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{etr6=}\KeywordTok{resid}\NormalTok{(Reg_6R)}
+\NormalTok{Reg_6aux=}\KeywordTok{lm}\NormalTok{(etr6}\OperatorTok{~}\NormalTok{logExpendA}\OperatorTok{+}\NormalTok{logExpendB}\OperatorTok{+}\NormalTok{prtystrA)}
+\NormalTok{(}\DataTypeTok{sReg_6aux_lm=}\KeywordTok{summary}\NormalTok{(Reg_6aux))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = etr6 ~ logExpendA + logExpendB + prtystrA)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -20.3990  -5.4184  -0.8737   4.9563  26.0575 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 20.64606    3.92680   5.258 4.36e-07 ***
+## logExpendA   6.40132    0.38211  16.752  < 2e-16 ***
+## logExpendB  -6.29566    0.37889 -16.616  < 2e-16 ***
+## prtystrA    -0.43586    0.06203  -7.027 4.95e-11 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 7.713 on 169 degrees of freedom
+## Multiple R-squared:  0.7638, Adjusted R-squared:  0.7597 
+## F-statistic: 182.2 on 3 and 169 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"El R2_aux para la prueba LM es el R2 de la regresión auxiliar"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "El R2_aux para la prueba LM es el R2 de la regresión auxiliar"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"El R2_aux es"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "El R2_aux es"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{R2_aux=}\FloatTok{0.7638}
+
+\NormalTok{R2_aux}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7638
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{LM6_22=}\NormalTok{n}\OperatorTok{*}\NormalTok{R2_aux)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 132.1374
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{LM6_23=}\NormalTok{n}\OperatorTok{*}\NormalTok{(RSS_R6}\OperatorTok{-}\StringTok{ }\NormalTok{RSS_NR6)}\OperatorTok{/}\NormalTok{(RSS_R6))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 132.1448
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{pv_LM6=}\KeywordTok{pchisq}\NormalTok{(LM6_}\DecValTok{22}\NormalTok{,}\DataTypeTok{df=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lower.tail =}\NormalTok{ F))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.396139e-30
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{pv_LM6_23=}\KeywordTok{pchisq}\NormalTok{(LM6_}\DecValTok{23}\NormalTok{,}\DataTypeTok{df=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lower.tail =}\NormalTok{ F))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.390974e-30
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\StringTok{"Ya que P_val <<alpha concluimos que se rechaza Ho y por lo tanto logExpendA-logExpendB!==0 "}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Ya que P_val <<alpha concluimos que se rechaza Ho y por lo tanto logExpendA-logExpendB!==0 "
+\end{verbatim}
+
+Ya que P\_val \textless\textless alpha concluimos que se rechaza Ho y
+por lo tanto logExpendA-logExpendB!==0
+
+Las tres pruebas nos hacen concluir que se debe rechazar la hipotesis
+nula y por lo tanto un cambio del 1\% del gasto de A no es compensado
+por un gasto del 1\% del gasto de B, ya que esto se representa como
+elasticidades tiene sentido hablar de porcentajes, luego
+logExpendA-logExpendB es diferente de cero y los cambios no son iguales
+por conclusion.
+
+\end{document}
