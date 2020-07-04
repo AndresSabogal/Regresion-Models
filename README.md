@@ -6,6 +6,7 @@ Regresiones lineales múltiples, estimacion por minimos cuadrados ordinarios, an
 Encontrara los archivos .xls correspondientes a los datos para cada regresion, un archivo en R notebook .rmd, una presentacion en word hecha con knit, una hermosa presentacion en HTML y otras presentaciones
 
 Si quieres ver el documento el word puedes descargar el archivo .doc
-Si quieres ver la presentacion el HTML puedes descargar el archivo . 
+Si quieres ver la presentacion el HTML puedes descargar el archivo .html
+Si quieres ver el scrip de notebook en R puedes descargar el archivo .RMD
 
 "Trabajo realizado para el Prof Sergio Ivan Restrepo"
